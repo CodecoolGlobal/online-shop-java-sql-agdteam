@@ -1,4 +1,5 @@
 import DAO.*;
+import Model.Customer;
 import Service.ServiceAdmin;
 import Service.ServiceCustomer;
 
@@ -10,6 +11,7 @@ public class Controller {
 	private CustomerDAO customerDAO;
 	private FeedbackDAO feedbackDAO;
 	private OrdersDAO ordersDAO;
+	private Customer customer;
 
 
 	public void mainLoop() {
