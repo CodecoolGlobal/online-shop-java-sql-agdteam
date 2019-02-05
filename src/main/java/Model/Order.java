@@ -1,9 +1,11 @@
+package Model;
+
 import java.util.Date;
 
 public class Order {
 	private int id;
 	private Basket basket;
-	private User user;
+	private Customer user;
 	private Date orderCreateAt;
 	private OrderStatus orderStatus;
 	private Date orderPayAt;

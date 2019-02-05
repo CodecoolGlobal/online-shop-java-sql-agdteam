@@ -1,2 +1,4 @@
+package Model;
+
 enum  OrderStatus {
 }

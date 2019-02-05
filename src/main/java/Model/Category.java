@@ -1,3 +1,5 @@
+package Model;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +22,7 @@ public class Category{
 
 	@Override
 	public String toString() {
-		return "Category{" +
+		return "Model.Category{" +
 				"id=" + id +
 				", name='" + name + '\'' +
 				", isAvailable=" + isAvailable +
