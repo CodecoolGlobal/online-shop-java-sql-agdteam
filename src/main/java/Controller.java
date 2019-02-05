@@ -1,7 +1,6 @@
 import DAO.*;
 import Model.Customer;
-import Service.ServiceAdmin;
-import Service.ServiceCustomer;
+import Service.*;
 
 public class Controller {
 	private ServiceAdmin serviceAdmin;
@@ -14,7 +13,7 @@ public class Controller {
 	private Customer customer;
 
 
-	public void mainLoop() {
+	public void mainRun() {
 
 	}
 

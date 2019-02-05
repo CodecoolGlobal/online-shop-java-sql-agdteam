@@ -1,6 +1,9 @@
 package DAO;
 
+import Model.Basket;
 import Model.Customer;
+import Model.Feedback;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +25,7 @@ public class CustomerDAO {
 
 	public Customer get(int index) {
 
-		return new Customer();
+		return new Customer("test", "test", new ArrayList<Basket>(), true, new ArrayList<Basket>(), new ArrayList<Feedback>());
 	}
 
 	public void update(int index) {
