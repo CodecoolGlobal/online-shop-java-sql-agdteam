@@ -1,6 +1,6 @@
 import DAO.*;
-import Service.ServiceAdmin;
-import Service.ServiceCustomer;
+import Model.Customer;
+import Service.*;
 
 public class Controller {
 	private ServiceAdmin serviceAdmin;
@@ -10,9 +10,10 @@ public class Controller {
 	private CustomerDAO customerDAO;
 	private FeedbackDAO feedbackDAO;
 	private OrdersDAO ordersDAO;
+	private Customer customer;
 
 
-	public void mainLoop() {
+	public void mainRun() {
 
 	}
 

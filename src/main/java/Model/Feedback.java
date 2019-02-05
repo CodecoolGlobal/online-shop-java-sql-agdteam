@@ -22,7 +22,7 @@ public class Feedback {
                 .toInstant());
     }
 
-    // Constroctor for FeedbackDAO, when importing from database, when date of creation is already known
+    // Constructor for FeedbackDAO, when importing from database, when date of creation is already known
     public Feedback(int id, String username, String message, Date date, int stars) {
         this.id = id;
         this.username = username;
@@ -30,4 +30,15 @@ public class Feedback {
         this.date = date;
         this.stars = stars;
     }
+
+    // Getters & Setters
+	public int getId() { return id; }
+	public String getUsername() { return username; }
+	public void setUsername(String userName) { this.username = userName; }
+	public Date getDate() {	return date; }
+	public void setDate(Date date) { this.date = date; }
+	public String getMessage() { return message; }
+	public void setMessage(String message) { this.message = message; }
+	public int getStars() {	return stars; }
+	public void setStars(int stars) { this.stars = stars; }
 }
