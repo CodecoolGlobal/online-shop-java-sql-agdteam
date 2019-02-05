@@ -12,18 +12,19 @@ public class Order {
 	private Date orderCreateAt;
 	private Date orderPayAt;
 
-	// Constructor for first creation by Customer
+	// Constructor for importing from database where id has been assigned
+	public Order(int id, Basket basket, Customer user, OrderStatus orderStatus, Date orderCreateAt, Date orderPayAt) {
+		this(basket, user, orderStatus);
+		this.orderPayAt = orderPayAt;
+		this.id = id;
+	}
+
+	// Constructor for creation of the new order
 	public Order(Basket basket, Customer user, OrderStatus orderStatus) {
 		this.basket = basket;
 		this.user = user;
 		this.orderStatus = orderStatus;
 		orderCreateAt = getLocalDateInDateFormat();
-	}
-	// Constructor for importing from DAO
-	public Order(int id, Basket basket, Customer user, OrderStatus orderStatus, Date orderCreateAt, Date orderPayAt) {
-		this(basket, user, orderStatus);
-		this.orderPayAt = orderPayAt;
-		this.id = id;
 	}
 
 	public boolean pay() {
