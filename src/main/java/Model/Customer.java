@@ -3,21 +3,27 @@ package Model;
 import java.util.List;
 
 public class Customer {
+    private int id;
     private boolean isAdmin;
     private String login;
+    private String password;
     private String name;
     private Basket basket;
     private List<Order> orders;
     private List<Feedback> feedbacks;
 
-    public Customer(boolean isAdmin,
+    public Customer(int id,
+                    boolean isAdmin,
                     String login,
+                    String password,
                     String name,
                     Basket basket,
                     List<Order> orders,
                     List<Feedback> feedbacks) {
+        this.id = id;
         this.isAdmin = isAdmin;
         this.login = login;
+        this.password = password;
         this.name = name;
         this.basket = basket;
         this.orders = orders;
@@ -25,10 +31,14 @@ public class Customer {
     }
 
     // Getters & Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
     public boolean getIsAdmin() { return isAdmin; }
     public void setIsAdmin(boolean isAdmin) { this.isAdmin = isAdmin; }
     public String getLogin() { return login; }
     public void setLogin(String login) { this.login = login; }
+    public String getPassword() { return password; }
+    public void setPasswordt(String password) { this.password = password; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public List<Order> getOrders() { return orders; }
@@ -36,7 +46,7 @@ public class Customer {
     public List<Feedback> getFeedbacks() { return feedbacks; }
     public void setFeedbacks(List<Feedback> feedbacks) { this.feedbacks = feedbacks; }
 
-    // Basked CRUD
+    // Basket CRUD
     public void addToBasket(Product product, int amount) { basket.addProduct(product, amount); }
     public Basket getBasket() { return basket; }
     public void removeFromBasket(Product product) { basket.deleteProduct(product); }
@@ -44,7 +54,5 @@ public class Customer {
     public void clearBasket() { basket = new Basket(); }
 
     // Feedback
-    public void addFeedback() {
-
-    }
+    public void addFeedback(Feedback feedbackToAdd) { feedbacks.add(feedbackToAdd); }
 }
