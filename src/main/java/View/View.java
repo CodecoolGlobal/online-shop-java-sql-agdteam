@@ -5,7 +5,7 @@ import java.util.stream.Stream;
 
 public class View {
     private ValidatorInput validatorInput;
-	private static final ArrayList<String> MAIN_MENU_OPTIONS = new ArrayList<>(Arrays.asList("Login", "Shop without logging", "Exit"));
+	private static final ArrayList<String> MAIN_MENU_OPTIONS = new ArrayList<>(Arrays.asList("Login", "Shop without logging"));
 
 
     public View(){
@@ -17,18 +17,19 @@ public class View {
     }
 
 	public int getUserMenuChoice(String menuTitle, List<String> menuOptions){
+		System.out.print("\033[H\033[2J");
 		showMenuFromTitleList(menuTitle, menuOptions);
 		System.out.print("Please select menu option:");
-		return validatorInput.getIntInput(1, menuOptions.size());
+		return validatorInput.getIntInput(menuOptions.size());
 	}
 
 	public String getName(){
-		System.out.println("Name: ");
+		System.out.print("Name: ");
 		return validatorInput.getUserName();
 	}
 
 	public String getPassword(){
-		System.out.println("Password: ");
+		System.out.print("Password: ");
 		return validatorInput.getUserName();
 	}
 
@@ -39,10 +40,11 @@ public class View {
 
     private void showMenuFromTitleList(String menuTitle, List<String> menuOptions){
         System.out.println(menuTitle);
-        for (int i = 0; i < menuOptions.size();i++){
-            int optionNumber = i+1;
-            System.out.println(optionNumber + ". " + menuOptions.get(i));
+        for (int i = 0; i < menuOptions.size(); i++){
+	        System.out.println(i + 1  + ". " + menuOptions.get(i));
+
         }
+	    System.out.println("0. Exit");
     }
 
 

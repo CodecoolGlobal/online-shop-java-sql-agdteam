@@ -2,7 +2,6 @@ package DAO;
 
 import Model.Basket;
 import Model.Customer;
-import Model.Feedback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +36,7 @@ public class CustomerDAO {
 	}
 
 	public Customer getCustomerByLoginAndPassword(String login, String password){
-		return null;
+		return new Customer(1, true, login, "qwer", "Jan", new Basket() );
+//		return null;
 	}
 }

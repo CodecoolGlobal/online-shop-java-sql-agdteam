@@ -9,12 +9,12 @@ public class ValidatorInput {
         inputScanner = new Scanner(System.in);
     }
 
-    public int getIntInput(int minimum, int maximum) {
+    public int getIntInput( int maximum) {
         boolean inputCorrect = false;
         while (!inputCorrect) {
             try {
                 int input = Integer.parseInt(inputScanner.next());
-                if (input >= minimum && input <= maximum) {
+                if (input >= 0 && input <= maximum) {
                     return input;
                 } else {
                     System.out.println("Incorrect choice");
@@ -29,7 +29,7 @@ public class ValidatorInput {
         return inputScanner.nextLine();
     }
 
-    public String getUserPassword(){
+    public String getUserPassword(){ //todo validate
         return inputScanner.nextLine();
     }
 }
