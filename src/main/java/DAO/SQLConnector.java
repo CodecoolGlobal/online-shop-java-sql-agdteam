@@ -27,7 +27,7 @@ public class SQLConnector {
 			connection.setAutoCommit(false);
 			statement = connection.createStatement();
 
-		}catch (Exception ex){
+		} catch (Exception ex){
 			ex.printStackTrace();
 		}
 		createTableIfDataFileIsEmpty();
@@ -91,7 +91,7 @@ public class SQLConnector {
 		this.resultSet = resultSet;
 	}
 
-	public SQLConnector getInstance() {
+	public static SQLConnector getInstance() {
 
 		return new SQLConnector();
 	}

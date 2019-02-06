@@ -6,8 +6,8 @@ import java.util.List;
 public class FeaturedCategory extends Category{
 	private Date expirationDate;
 
-	public FeaturedCategory(List<Product> products, String name, Date expirationDate) {
-		super(products, name);
+	public FeaturedCategory(String name, int isAvailable, Date expirationDate) {
+		super(name, isAvailable);
 		this.expirationDate = expirationDate;
 	}
 }

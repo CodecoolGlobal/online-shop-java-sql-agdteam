@@ -1,25 +1,32 @@
 package Model;
 
-import java.util.*;
-
 public class Category{
 	private int id;
 	private String name;
 	private boolean isAvailable;
-	private List<Product> products;
 
 
-	public Category(List<Product> products, String name) {
-		this.products = products;
+	public Category(String name, int isAvailable) {
 		this.name = name;
+		this.isAvailable = isAvailable == 1;
+	}
+
+	public Category(int id, String name, int isAvailable){
+		this(name, isAvailable);
+		this.id = id;
+	}
+
+	public boolean isAvailable() {
+		return isAvailable;
+	}
+
+	public void setAvailable(boolean isAvailable) {
+		isAvailable = isAvailable;
 	}
 
 
-	public List<Product> getProducts() {
-		return products;
-	}
 
-
+/*
 	@Override
 	public String toString() {
 		StringBuilder productsInCategoryString = new StringBuilder();
@@ -39,5 +46,5 @@ public class Category{
 					.append("}\n");
 		}
 		return productsInCategoryString.toString();
-	}
+	}*/
 }
