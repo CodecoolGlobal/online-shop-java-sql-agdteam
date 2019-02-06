@@ -1,6 +1,11 @@
 import DAO.*;
+import Model.Customer;
 import Service.ServiceAdmin;
 import Service.ServiceCustomer;
+import View.View;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Controller {
 	private ServiceAdmin serviceAdmin;
@@ -10,10 +15,34 @@ public class Controller {
 	private CustomerDAO customerDAO;
 	private FeedbackDAO feedbackDAO;
 	private OrdersDAO ordersDAO;
+	private View view;
 
+	private static final ArrayList<String> MAIN_MENU_OPTIONS = new ArrayList<>(Arrays.asList("Login", "Shop without logging", "Exit"));
+
+
+	public Controller(){
+		this.view = new View();
+	}
 
 	public void mainLoop() {
-
+		boolean appIsOn = true;
+		while (appIsOn){
+			int userOption = view.getUserMenuChoice("Login Menu", MAIN_MENU_OPTIONS);
+			switch (userOption){
+				case 1:
+					//TODO: login menu & select customer or admin
+					Customer loggedAdminUser = new Customer();
+					serviceAdmin = new ServiceAdmin(loggedAdminUser, customerDAO, feedbackDAO, ordersDAO, productsDAO);
+					serviceAdmin.serviceAdminRun();
+					break;
+				case 2:
+					//TODO: login as anonymous customer
+					break;
+				case 3:
+					appIsOn = false;
+					break;
+			}
+		}
 	}
 
 	public boolean loginRecognizer() {
