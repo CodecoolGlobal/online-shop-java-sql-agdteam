@@ -1,8 +1,6 @@
 package DAO;
 
-import Model.Basket;
 import Model.Customer;
-import Model.Feedback;
 import Model.Order;
 
 import java.sql.ResultSet;
@@ -50,7 +48,7 @@ public class CustomerDAO {
 	}
 
 	public List<Customer> getAll(){
-		sqlConnector.setResultByQuery("SELECT * FROM Person");
+		sqlConnector.setResultSetByQuery("SELECT * FROM Person");
 		List<Customer> customerList = new ArrayList<Customer>();
 		try {
 			while (sqlConnector.getResultSet().next()){
@@ -102,7 +100,7 @@ public class CustomerDAO {
 	}
 
 	private List<Order> createListWithOrders(int id){
-		sqlConnector.setResultByQuery("SELECT * FROM ORDERS WHERE id=" + id);
+		sqlConnector.setResultSetByQuery("SELECT * FROM ORDERS WHERE id=" + id);
 		List<Order> ordersList = new ArrayList<Order>();
 		try{
 			while(sqlConnector.getResultSet().next()){

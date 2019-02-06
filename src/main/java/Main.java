@@ -1,6 +1,9 @@
 import DAO.CustomerDAO;
 import DAO.FeedbackDAO;
 import DAO.SQLConnector;
+import Model.Feedback;
+
+import java.time.LocalDate;
 
 public class Main {
 	public static void main(String[] args) {

@@ -5,9 +5,6 @@ import Model.Feedback;
 import java.io.File;
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 public class SQLConnector {
 	private  Connection connection;
@@ -53,7 +50,7 @@ public class SQLConnector {
 	}
 
 	private void createTableIfDataFileIsEmpty() {
-		setResultByQuery("SELECT * FROM Feedback");
+		setResultSetByQuery("SELECT * FROM Feedback");
 		FeedbackDAO feedbackDAO = new FeedbackDAO(this);
 
 		if (resultSet==null) {
@@ -72,7 +69,7 @@ public class SQLConnector {
                 LocalDate.now(), 5);
     }
 
-	public void setResultByQuery(String query) {
+	public void setResultSetByQuery(String query) {
 		try{
 			resultSet = statement.executeQuery(query);
 		}catch (Exception ex){
