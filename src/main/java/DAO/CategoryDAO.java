@@ -16,7 +16,7 @@ public class CategoryDAO {
 
     public List<Category> getAllCategoryList(){
 
-        sqlConnector.setResultByQuery("SELECT * FROM Categories");
+        sqlConnector.setResultSetByQuery("SELECT * FROM Categories");
         List<Category> categoryList = new ArrayList<>();
 
         return categoryList;
@@ -24,7 +24,7 @@ public class CategoryDAO {
 
     public Category getCategoryById(int categoryId){
         String getByIdQuery = "SELECT * FROM Categories WHERE CATEGORYID = " + categoryId + ";";
-        sqlConnector.setResultByQuery(getByIdQuery);
+        sqlConnector.setResultSetByQuery(getByIdQuery);
         return categoryByCurrentResultSet();
 
     }

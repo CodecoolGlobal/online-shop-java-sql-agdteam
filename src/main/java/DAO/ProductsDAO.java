@@ -19,7 +19,7 @@ public class ProductsDAO {
 
     public List<Product> getAllProductsList() {
 
-        sqlConnector.setResultByQuery("SELECT * FROM Products");
+        sqlConnector.setResultSetByQuery("SELECT * FROM Products");
         List<Product> productList = new ArrayList<>();
 
         try {
