@@ -1,5 +1,7 @@
 import DAO.*;
+import Model.Basket;
 import Model.Customer;
+import Model.Feedback;
 import Service.ServiceAdmin;
 import Service.ServiceCustomer;
 import View.View;
@@ -18,6 +20,7 @@ public class Controller {
 	private View view;
 
 	private static final ArrayList<String> MAIN_MENU_OPTIONS = new ArrayList<>(Arrays.asList("Login", "Shop without logging", "Exit"));
+	private Customer customer;
 
 
 	public Controller(){
@@ -31,7 +34,9 @@ public class Controller {
 			switch (userOption){
 				case 1:
 					//TODO: login menu & select customer or admin
-					Customer loggedAdminUser = new Customer();
+					Basket userBasket = new Basket();
+
+					Customer loggedAdminUser = new Customer(1, true, "dummyUser", "dummyLogin", "userName", userBasket);
 					serviceAdmin = new ServiceAdmin(loggedAdminUser, customerDAO, feedbackDAO, ordersDAO, productsDAO);
 					serviceAdmin.serviceAdminRun();
 					break;

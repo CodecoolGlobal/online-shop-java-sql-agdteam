@@ -1,32 +1,43 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Category{
 	private int id;
 	private String name;
 	private boolean isAvailable;
-	private List<Product> product;
+	private List<Product> products;
 
 
-	public Category(String name) {
+	public Category(List<Product> products, String name) {
+		this.products = products;
 		this.name = name;
 	}
 
 
 	public List<Product> getProducts() {
-		return new ArrayList<Product>();
+		return products;
 	}
 
 
 	@Override
 	public String toString() {
-		return "Model.Category{" +
-				"id=" + id +
-				", name='" + name + '\'' +
-				", isAvailable=" + isAvailable +
-				", product=" + product +
-				'}';
+		StringBuilder productsInCategoryString = new StringBuilder();
+		for(int i = 0; i < products.size(); i ++) {
+			productsInCategoryString
+					.append("Model.Category{\n" + "id=")
+					.append(id).append("\n")
+					.append(", name='")
+					.append(name).append('\'')
+					.append("\n")
+					.append(", isAvailable=")
+					.append(isAvailable)
+					.append("\n")
+					.append(", product=")
+					.append(products.get(i))
+					.append("\n")
+					.append("}\n");
+		}
+		return productsInCategoryString.toString();
 	}
 }

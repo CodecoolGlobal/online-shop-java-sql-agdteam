@@ -1,4 +1,43 @@
 package Model;
 
 public class Customer {
+    private int id;
+    private boolean isAdmin;
+    private String login;
+    private String password;
+    private String name;
+    private Basket basket;
+
+
+    public Customer(int id,
+                    boolean isAdmin,
+                    String login,
+                    String password,
+                    String name,
+                    Basket basket) {
+        this.id = id;
+        this.isAdmin = isAdmin;
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.basket = basket;
+    }
+
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+    public boolean getIsAdmin() { return isAdmin; }
+    public void setIsAdmin(boolean isAdmin) { this.isAdmin = isAdmin; }
+    public String getLogin() { return login; }
+    public void setLogin(String login) { this.login = login; }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public void addToBasket(Product product, int amount) { basket.addProduct(product, amount); }
+    public Basket getBasket() { return basket; }
+    public void removeFromBasket(Product product) { basket.deleteProduct(product); }
+    public void updateBasket(Basket basket) { this.basket = basket; }
+    public void clearBasket() { basket = new Basket(); }
+
 }

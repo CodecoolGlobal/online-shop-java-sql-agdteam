@@ -2,6 +2,9 @@ package View;
 
 import java.util.List;
 
+import java.util.Collections;
+import java.util.List;
+
 public class View {
     private ValidatorInput validatorInput;
 
@@ -22,5 +25,14 @@ public class View {
         System.out.println("Please select menu option:");
         return validatorInput.getIntInput(1, menuOptions.size());
     }
+
+
+	public void printString(String string) {
+
+	}
+
+	public void printTable(Collections collections, List listHeaders) {
+
+	}
 
 }
