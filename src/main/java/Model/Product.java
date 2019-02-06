@@ -10,7 +10,6 @@ public class Product {
 	private boolean isAvailable;
 	private Category category;
 
-	// Cons
 	public Product(String name, BigDecimal price, int amount, Category category) {
 		this.name = name;
 		this.price = price;

@@ -10,7 +10,7 @@ public class Customer {
     private String name;
     private Basket basket;
     private List<Order> orders;
-    private List<Feedback> feedbacks;
+    private List<Feedback> feedback;
 
     public Customer(int id,
                     boolean isAdmin,
@@ -19,7 +19,7 @@ public class Customer {
                     String name,
                     Basket basket,
                     List<Order> orders,
-                    List<Feedback> feedbacks) {
+                    List<Feedback> feedback) {
         this.id = id;
         this.isAdmin = isAdmin;
         this.login = login;
@@ -27,10 +27,9 @@ public class Customer {
         this.name = name;
         this.basket = basket;
         this.orders = orders;
-        this.feedbacks = feedbacks;
+        this.feedback = feedback;
     }
 
-    // Getters & Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public boolean getIsAdmin() { return isAdmin; }
@@ -38,21 +37,19 @@ public class Customer {
     public String getLogin() { return login; }
     public void setLogin(String login) { this.login = login; }
     public String getPassword() { return password; }
-    public void setPasswordt(String password) { this.password = password; }
+    public void setPassword(String password) { this.password = password; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public List<Order> getOrders() { return orders; }
     public void setOrders(List<Order> orders) { this.orders = orders; }
-    public List<Feedback> getFeedbacks() { return feedbacks; }
-    public void setFeedbacks(List<Feedback> feedbacks) { this.feedbacks = feedbacks; }
+    public List<Feedback> getFeedback() { return feedback; }
+    public void setFeedback(List<Feedback> feedback) { this.feedback = feedback; }
 
-    // Basket CRUD
     public void addToBasket(Product product, int amount) { basket.addProduct(product, amount); }
     public Basket getBasket() { return basket; }
     public void removeFromBasket(Product product) { basket.deleteProduct(product); }
     public void updateBasket(Basket basket) { this.basket = basket; }
     public void clearBasket() { basket = new Basket(); }
 
-    // Feedback
-    public void addFeedback(Feedback feedbackToAdd) { feedbacks.add(feedbackToAdd); }
+    public void addFeedback(Feedback feedbackToAdd) { feedback.add(feedbackToAdd); }
 }

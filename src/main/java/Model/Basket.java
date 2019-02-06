@@ -1,32 +1,28 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class Basket {
 	private int id;
 	private Iterator<Product> iterator;
 	private List<Product> products;
 
-	// Constructor for importing from database
 	public Basket(int id) {
 		this.id = id;
 		products = new ArrayList<>();
 	}
 
-	// Constructor for creating new basket
 	public Basket() {
-		products.clear();
+		products = new ArrayList<>();
 	}
 
-	public Iterator<Product> getIterator() { return new ProductIterator(products); }
+	public ProductIterator getIterator() {
+		return new ProductIterator(products); }
 
 
 	public void addProduct(Product product, int amount) {
-		Product productToAdd = product;
-		productToAdd.setAmount(amount);
-		products.add(productToAdd);
+		product.setAmount(amount);
+		products.add(product);
 	}
 
 
@@ -36,12 +32,11 @@ public class Basket {
 
 	@Override
 	public String toString() {
-		String productsInBasketString = "Model.Basket {\n";
-		for(int i = 0; i < products.size(); i++) {
-			productsInBasketString +=
-					products.get(i).toString();
+		StringBuilder productsInBasketString = new StringBuilder("Model.Basket {\n");
+		for (Product product : products) {
+			productsInBasketString.append(product.toString());
 		}
-		productsInBasketString += "\n}\n";
-		return productsInBasketString;
+		productsInBasketString.append("\n}\n");
+		return productsInBasketString.toString();
 	}
 }
