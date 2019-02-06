@@ -7,26 +7,32 @@ public class Category{
 	private int id;
 	private String name;
 	private boolean isAvailable;
-	private List<Product> product;
+	private List<Product> products;
 
 
-	public Category(String name) {
+	public Category(List<Product> products, String name) {
+		this.products = products;
 		this.name = name;
 	}
 
 
 	public List<Product> getProducts() {
-		return new ArrayList<Product>();
+		return products;
 	}
 
 
 	@Override
 	public String toString() {
-		return "Model.Category{" +
-				"id=" + id +
-				", name='" + name + '\'' +
-				", isAvailable=" + isAvailable +
-				", product=" + product +
-				'}';
+		String productsInCategoryString = "";
+		for(int i = 0; i < products.size(); i ++) {
+			productsInCategoryString +=
+					"Model.Category{\n" +
+							"id=" + id + "\n"+
+							", name='" + name + '\'' + "\n" +
+							", isAvailable=" + isAvailable + "\n" +
+							", product=" + products.get(i) + "\n" +
+							"}\n";
+		}
+		return productsInCategoryString;
 	}
 }
