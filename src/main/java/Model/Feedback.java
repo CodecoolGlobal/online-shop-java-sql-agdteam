@@ -8,7 +8,7 @@ public class Feedback {
     private int id;
     private String username;
     private String message;
-    private Date date;
+    private LocalDate date;
     private int stars;
 
     // Constructor for customer when feedback is created
@@ -16,14 +16,11 @@ public class Feedback {
         this.username = username;
         this.message = message;
         this.stars = stars;
-        this.date = Date.from(LocalDate
-                .now()
-                .atStartOfDay(ZoneId.systemDefault())
-                .toInstant());
+        this.date = LocalDate.now();
     }
 
     // Constructor for FeedbackDAO, when importing from database, when date of creation is already known
-    public Feedback(int id, String username, String message, Date date, int stars) {
+    public Feedback(int id, String username, String message, LocalDate date, int stars) {
         this.id = id;
         this.username = username;
         this.message = message;
@@ -35,8 +32,8 @@ public class Feedback {
 	public int getId() { return id; }
 	public String getUsername() { return username; }
 	public void setUsername(String userName) { this.username = userName; }
-	public Date getDate() {	return date; }
-	public void setDate(Date date) { this.date = date; }
+	public LocalDate getDate() {	return date; }
+	public void setDate(LocalDate date) { this.date = date; }
 	public String getMessage() { return message; }
 	public void setMessage(String message) { this.message = message; }
 	public int getStars() {	return stars; }

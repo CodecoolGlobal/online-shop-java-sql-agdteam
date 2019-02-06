@@ -36,7 +36,7 @@ public class Controller {
 					//TODO: login menu & select customer or admin
 					Basket userBasket = new Basket();
 
-					Customer loggedAdminUser = new Customer(1, true, "dummyUser", "dummyLogin", "userName", userBasket);
+					Customer loggedAdminUser = new Customer(1, 0, "dummyUser", "dummyLogin", "userName", userBasket);
 					serviceAdmin = new ServiceAdmin(loggedAdminUser, customerDAO, feedbackDAO, ordersDAO, productsDAO);
 					serviceAdmin.serviceAdminRun();
 					break;

@@ -17,6 +17,21 @@ public class OrdersDAO {
 		return new ArrayList<Order>();
 	}
 
+	public void createTable(){
+		String createTableSqlOrders =
+				"CREATE TABLE Orders(\n" +
+						"ID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+						"LOGIN TEXT\n" +
+						"PASSWORD TEXT\n" +
+						"NAME TEXT,\n" +
+						"SURNAME TEXT,\n" +
+						"CITY TEXT,\n" +
+						"ISADMIN INTEGER\n" +
+						");";
+//		executeUpdateAndCommit(createTableSqlCustomer);
+	}
+
+
 	public void add(Order product) {
 
 	}

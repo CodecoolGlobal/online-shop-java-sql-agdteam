@@ -10,13 +10,13 @@ public class Customer {
 
 
     public Customer(int id,
-                    boolean isAdmin,
+                    int isAdmin,
                     String login,
                     String password,
                     String name,
                     Basket basket) {
         this.id = id;
-        this.isAdmin = isAdmin;
+        this.isAdmin = isAdmin == 1;
         this.login = login;
         this.password = password;
         this.name = name;
