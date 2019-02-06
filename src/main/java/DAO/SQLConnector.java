@@ -1,5 +1,6 @@
 package DAO;
 
+import Model.Customer;
 import Model.Feedback;
 
 import java.io.File;
@@ -50,15 +51,15 @@ public class SQLConnector {
 	}
 
 	private void createTableIfDataFileIsEmpty() {
-		setResultSetByQuery("SELECT * FROM Feedback");
-		FeedbackDAO feedbackDAO = new FeedbackDAO(this);
+		setResultSetByQuery("SELECT * FROM CUSTOMER");
+		CustomerDAO customerDAO = new CustomerDAO(this);
 
 		if (resultSet==null) {
 			System.out.println("DataBase not found, creating AGDShop...");
-			feedbackDAO.createTableFeedback();
+			customerDAO.createTableCustomer();
 		}else{
-			feedbackDAO.add(testAddFeedback());
-            System.out.println(feedbackDAO.getListAll().get(0));
+//			customerDAO.add(testAddCustomer());
+//            System.out.println(customerDAO.getListAll().get(0));
 			}
 
 
@@ -68,6 +69,11 @@ public class SQLConnector {
 	    return new Feedback(0,"Nazwa", "Wiadomosc",
                 LocalDate.now(), 5);
     }
+
+	public Customer testAddCustomer(){
+		return new Customer(0,0,"admin", "haslo",
+				"Wojtek", null);
+	}
 
 	public void setResultSetByQuery(String query) {
 		try{

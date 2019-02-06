@@ -22,25 +22,16 @@ public class CustomerDAO {
 
 	public void createTableCustomer(){
 		String createTableSqlCustomer =
-				"CREATE TABLE Customer(\n" +
-						"ID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-						"LOGIN TEXT,\n" +
-						"PASSWORD TEXT,\n" +
-						"NAME TEXT,\n" +
-						"SURNAME TEXT,\n" +
-						"CITY TEXT,\n" +
-						"ISADMIN INTEGER\n" +
+				"CREATE TABLE Customer(" +
+						"ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+						"ISADMIN INTEGER," +
+						"LOGIN TEXT," +
+						"PASSWORD TEXT," +
+						"NAME TEXT, "+
+						"ORDERS INTEGER," +
+						"FEEDBACK INTEGER" +
 						");";
 		executeUpdateAndCommit(createTableSqlCustomer);
-	}
-
-	private void executeUpdateAndCommit(String createTableSqlCustomer) {
-		try{
-			sqlConnector.getStatement().executeUpdate(createTableSqlCustomer);
-			sqlConnector.getConnection().commit();
-		}catch (SQLException ex){
-			ex.printStackTrace();
-		}
 	}
 
 	public void add(Customer product) {
@@ -58,8 +49,36 @@ public class CustomerDAO {
 			ex.printStackTrace();
 		}
 		return customerList;
+	}
 
+	public Customer getCustomerByLoginAndPassword(String login, String password){
+		String getLoginAndPassword = "SELECT * " +
+				"FROM CUSTOMER " +
+				"WHERE LOGIN='" + login +"' "+
+				"AND PASSWORD='" + password +"';";
+		sqlConnector.setResultSetByQuery(getLoginAndPassword);
 
+		ResultSet resultSet = sqlConnector.getResultSet();
+		if(resultSet != null){
+			try{
+				return new Customer(
+						resultSet.getInt("ID"),
+						resultSet.getInt("ISADMIN"),
+						resultSet.getString("LOGIN"),
+						resultSet.getString("PASSWORD"),
+						resultSet.getString("NAME"),
+						null
+						 //TODO: podpiac pod inne DAO
+				);
+			}catch (SQLException ex){
+				ex.printStackTrace();
+			}
+		}
+		else{
+			return null;
+		}
+
+		return null;
 	}
 
 	public Customer get(int index) {
@@ -77,39 +96,29 @@ public class CustomerDAO {
 	}
 
 	private Customer customerByCurrentResultSet(){
-//		ResultSet resultSet = sqlConnector.getResultSet();
-//		try{
-//			return new Customer(
-//					resultSet.getInt("ID"),
-//					resultSet.getInt("ISADMIN"),
-//					resultSet.getString("LOGIN"),
-//					resultSet.getString("PASSWORD"),
-//					resultSet.getString("NAME"),
-//					resultSet.getInt("ORDERS"),
-//					resultSet.getInt("FEEDBACKLIST")
-//			);
-//
-//		}catch (SQLException ex){
-//			ex.printStackTrace();
-//		} return new Customer("NN","login",List<Basket>,true,list, list);
-
-	return null;
-	}
-	public Customer getCustomerByLoginAndPassword(String login, String password){
-		return null;
-	}
-
-	private List<Order> createListWithOrders(int id){
-		sqlConnector.setResultSetByQuery("SELECT * FROM ORDERS WHERE id=" + id);
-		List<Order> ordersList = new ArrayList<Order>();
+		ResultSet resultSet = sqlConnector.getResultSet();
 		try{
-			while(sqlConnector.getResultSet().next()){
-				ordersList.add(ordersByCurrentResultSet());
-			}
+			return new Customer(
+					resultSet.getInt("ID"),
+					resultSet.getInt("ISADMIN"),
+					resultSet.getString("LOGIN"),
+					resultSet.getString("PASSWORD"),
+					resultSet.getString("NAME"),
+					null
+
+//					resultSet.getInt("ORDERS"),
+//					resultSet.getInt("FEEDBACKLIST") TODO: pobrac z innych DAO
+			);
+
 		}catch (SQLException ex){
 			ex.printStackTrace();
-		}
-		return ordersList;
+		} return null;
+	}
+
+
+	private List<Order> takeOrdersFromOrderDAObyId(int id){
+		return null;
+
 	}
 
 	private Order ordersByCurrentResultSet(){
@@ -125,6 +134,15 @@ public class CustomerDAO {
 		try{
 			ResultSet resultSet = sqlConnector.getResultSet();
 			resultSet = sqlConnector.getStatement().executeQuery(query);
+		}catch (SQLException ex){
+			ex.printStackTrace();
+		}
+	}
+
+	private void executeUpdateAndCommit(String createTableSqlCustomer) {
+		try{
+			sqlConnector.getStatement().executeUpdate(createTableSqlCustomer);
+			sqlConnector.getConnection().commit();
 		}catch (SQLException ex){
 			ex.printStackTrace();
 		}
