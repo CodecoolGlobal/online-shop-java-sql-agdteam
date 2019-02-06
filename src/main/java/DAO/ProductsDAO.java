@@ -25,7 +25,8 @@ public class ProductsDAO {
 
 	public Product get(int index) {
 
-		return new Product("asdf", new BigDecimal(123), 123, new Category("Category name"));
+//		return new Product("asdf", new BigDecimal(123), 123, new Category("Category name"));
+	return null;
 	}
 
 	public void update(int index) {

@@ -1,7 +1,6 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Category{
 	private int id;
@@ -23,16 +22,22 @@ public class Category{
 
 	@Override
 	public String toString() {
-		String productsInCategoryString = "";
+		StringBuilder productsInCategoryString = new StringBuilder();
 		for(int i = 0; i < products.size(); i ++) {
-			productsInCategoryString +=
-					"Model.Category{\n" +
-							"id=" + id + "\n"+
-							", name='" + name + '\'' + "\n" +
-							", isAvailable=" + isAvailable + "\n" +
-							", product=" + products.get(i) + "\n" +
-							"}\n";
+			productsInCategoryString
+					.append("Model.Category{\n" + "id=")
+					.append(id).append("\n")
+					.append(", name='")
+					.append(name).append('\'')
+					.append("\n")
+					.append(", isAvailable=")
+					.append(isAvailable)
+					.append("\n")
+					.append(", product=")
+					.append(products.get(i))
+					.append("\n")
+					.append("}\n");
 		}
-		return productsInCategoryString;
+		return productsInCategoryString.toString();
 	}
 }

@@ -97,9 +97,9 @@ public class CustomerDAO {
 
 	return null;
 	}
-
-
-
+	public Customer getCustomerByLoginAndPassword(String login, String password){
+		return null;
+	}
 
 	private List<Order> createListWithOrders(int id){
 		sqlConnector.setResultByQuery("SELECT * FROM ORDERS WHERE id=" + id);

@@ -1,7 +1,11 @@
 package DAO;
 
+import Model.Feedback;
+
 import java.io.File;
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -49,14 +53,24 @@ public class SQLConnector {
 	}
 
 	private void createTableIfDataFileIsEmpty() {
-		setResultByQuery("SELECT * FROM Customer");
-		if (resultSet==null){
+		setResultByQuery("SELECT * FROM Feedback");
+		FeedbackDAO feedbackDAO = new FeedbackDAO(this);
+
+		if (resultSet==null) {
 			System.out.println("DataBase not found, creating AGDShop...");
-			CustomerDAO customerDAO = new CustomerDAO(this);
-//			customerDAO.createTable();
-		}
+			feedbackDAO.createTableFeedback();
+		}else{
+			feedbackDAO.add(testAddFeedback());
+            System.out.println(feedbackDAO.getListAll().get(0));
+			}
+
 
 	}
+
+	public Feedback testAddFeedback(){
+	    return new Feedback(0,"Nazwa", "Wiadomosc",
+                LocalDate.now(), 5);
+    }
 
 	public void setResultByQuery(String query) {
 		try{
