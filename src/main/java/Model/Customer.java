@@ -11,7 +11,7 @@ public class Customer {
     private Basket basket;
     private List<Order> orders;
     private List<Feedback> feedback;
-
+//TODO: konstruktor bez password
     public Customer(int id,
                     int isAdmin,
                     String login,
