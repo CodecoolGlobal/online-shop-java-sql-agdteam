@@ -1,25 +1,30 @@
 package Service;
 
 import DAO.*;
+import Model.Customer;
+import View.View;
 import View.ViewCustomer;
 
 public class ServiceCustomer {
 	private ServiceUtilityAdmin serviceUtilityAdmin;
 	private ViewCustomer viewCustomer;
+	private View view;
 	private CustomerDAO customerDAO;
 	private FeedbackDAO feedbackDAO;
 	private OrdersDAO ordersDAO;
 	private ProductsDAO productsDAO;
+	private Customer customer;
 
 
-	public ServiceCustomer(CustomerDAO customerDAO, FeedbackDAO feedbackDAO, OrdersDAO ordersDAO, ProductsDAO productsDAO) {
+	public ServiceCustomer(Customer customer, CustomerDAO customerDAO, SQLConnector sqlConnector, View view) {
 		this.customerDAO = customerDAO;
-		this.feedbackDAO = feedbackDAO;
-		this.ordersDAO = ordersDAO;
-		this.productsDAO = productsDAO;
+		this.feedbackDAO = new FeedbackDAO(sqlConnector);
+		this.ordersDAO = new OrdersDAO(sqlConnector);
+		this.productsDAO = new ProductsDAO(sqlConnector);
+		this.view = view;
 	}
 
-	public void serviceCustomerRun() {
+	public void run() {
 
 	}
 }

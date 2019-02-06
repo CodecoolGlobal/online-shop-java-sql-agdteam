@@ -85,7 +85,7 @@ public class SQLConnector {
 		this.resultSet = resultSet;
 	}
 
-	public SQLConnector getInstance() {
+	public static SQLConnector getInstance() {
 
 		return new SQLConnector();
 	}
