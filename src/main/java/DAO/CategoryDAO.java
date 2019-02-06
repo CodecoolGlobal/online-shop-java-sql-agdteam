@@ -31,7 +31,8 @@ public class CategoryDAO implements InterfaceDAO<Category>{
     }
 
     public Category getCategoryById(int categoryId){
-        String getByIdQuery = "SELECT * FROM Categories WHERE CATEGORYID = " + categoryId + ";";
+        String getByIdQuery = "SELECT * FROM Categories WHERE CATEGORYID = "
+                + categoryId + ";";
         sqlConnector.setResultSetByQuery(getByIdQuery);
         return categoryByCurrentResultSet();
     }
@@ -42,7 +43,7 @@ public class CategoryDAO implements InterfaceDAO<Category>{
     public void add(Category category){
         int isAvailable = category.isAvailable() ? 1 : 0;
         String addCategory =
-                "INSERT INTO Categories (NAME, ISAVAILABLE) " +
+                "INSERT INTO Categories (CATEGORYNAME, ISAVAILABLE) " +
                         "VALUES (" +
                         "'" + category.getName() + "'," +
                         "'" + isAvailable + "'" +
@@ -54,7 +55,7 @@ public class CategoryDAO implements InterfaceDAO<Category>{
         String createFeedbackTable =
                 "CREATE TABLE Categories(" +
                         "CATEGORYID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                        "NAME VARCHAR," +
+                        "CATEGORYNAME VARCHAR," +
                         "ISAVAILABLE INTEGER," +
                         "EXPIRATIONDATE STRING" +
                         ");";
@@ -74,7 +75,7 @@ public class CategoryDAO implements InterfaceDAO<Category>{
         try {
             Category resultCategory = new Category(
                     resultSet.getInt("CATEGORYID"),
-                    resultSet.getString("NAME"),
+                    resultSet.getString("CATEGORYNAME"),
                     resultSet.getInt("ISAVAILABLE")
             );
             return resultCategory;

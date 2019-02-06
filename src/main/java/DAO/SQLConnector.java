@@ -3,8 +3,10 @@ package DAO;
 import Model.Category;
 import Model.Customer;
 import Model.Feedback;
+import Model.Product;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -53,14 +55,13 @@ public class SQLConnector {
 	}
 
 	private void createTableIfDataFileIsEmpty() {
-		setResultSetByQuery("SELECT * FROM Categories");
-		CategoryDAO categoryDAO = new CategoryDAO(this);
+		setResultSetByQuery("SELECT * FROM Products");
+		ProductsDAO productsDAO = new ProductsDAO(this);
 		if (resultSet==null) {
 			System.out.println("DataBase not found, creating AGDShop...");
-			categoryDAO.createCategoriesTable();
+			productsDAO.createProductsTable();
 		}else{
-//			categoryDAO.addCategory(testAddCategory());
-//			System.out.println(categoryDAO.getAllCategoryList());
+//			System.out.println(productsDAO.getAll());
 			}
 	}
 
@@ -76,6 +77,11 @@ public class SQLConnector {
 
 	public Category testAddCategory(){
 		return new Category("elektronika", 1);
+	}
+
+	public Product testAddProduct(){
+		Category testCategory = new Category("warzywa", 1);
+		return new Product("produkcik", BigDecimal.valueOf(20.05), 5, testCategory);
 	}
 
 	public void setResultSetByQuery(String query) {
