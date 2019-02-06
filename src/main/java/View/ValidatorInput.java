@@ -24,4 +24,12 @@ public class ValidatorInput {
             }
         } return 0;
     }
+
+    public String getUserName(){ //todo validate
+        return inputScanner.nextLine();
+    }
+
+    public String getUserPassword(){
+        return inputScanner.nextLine();
+    }
 }

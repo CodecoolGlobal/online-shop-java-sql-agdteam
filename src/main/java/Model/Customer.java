@@ -25,7 +25,7 @@ public class Customer {
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
-    public boolean getIsAdmin() { return isAdmin; }
+    public boolean isAdmin() { return isAdmin; }
     public void setIsAdmin(boolean isAdmin) { this.isAdmin = isAdmin; }
     public String getLogin() { return login; }
     public void setLogin(String login) { this.login = login; }

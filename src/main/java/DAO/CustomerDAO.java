@@ -35,4 +35,8 @@ public class CustomerDAO {
 	public void del(int index) {
 
 	}
+
+	public Customer getCustomerByLoginAndPassword(String login, String password){
+		return null;
+	}
 }

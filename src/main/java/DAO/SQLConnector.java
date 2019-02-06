@@ -17,7 +17,7 @@ public class SQLConnector {
 		return new HashSet<ResultSet>();
 	}
 
-	public SQLConnector getInstance() {
+	public static SQLConnector getInstance() {
 
 		return new SQLConnector();
 	}

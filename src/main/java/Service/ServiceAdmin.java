@@ -1,9 +1,6 @@
 package Service;
 
-import DAO.CustomerDAO;
-import DAO.FeedbackDAO;
-import DAO.OrdersDAO;
-import DAO.ProductsDAO;
+import DAO.*;
 import Model.Customer;
 import View.ViewAdmin;
 
@@ -21,17 +18,17 @@ public class ServiceAdmin {
 
 	private static final ArrayList<String> ADMIN_MENU_OPTIONS = new ArrayList<>(Arrays.asList("Show All Customers", "Logout"));
 
-	public ServiceAdmin(Customer adminUser, CustomerDAO customerDAO, FeedbackDAO feedbackDAO, OrdersDAO ordersDAO, ProductsDAO productsDAO) {
+	public ServiceAdmin(Customer adminUser, CustomerDAO customerDAO, SQLConnector sqlConnector) {
 		this.adminUser = adminUser;
 		this.customerDAO = customerDAO;
-		this.feedbackDAO = feedbackDAO;
-		this.ordersDAO = ordersDAO;
-		this.productsDAO = productsDAO;
+		this.feedbackDAO = new FeedbackDAO(sqlConnector);
+		this.ordersDAO = new OrdersDAO(sqlConnector);
+		this.productsDAO = new ProductsDAO(sqlConnector);
 		viewAdmin = new ViewAdmin();
 	}
 
 
-	public void serviceAdminRun() {
+	public void run() {
 		boolean adminMenuIsOn = true;
 		while (adminMenuIsOn){
 			int userOption = viewAdmin.getUserMenuChoice("Admin menu", ADMIN_MENU_OPTIONS);

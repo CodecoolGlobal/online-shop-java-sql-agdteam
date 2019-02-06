@@ -9,8 +9,5 @@
         <module name="AgdShop" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="AgdShop" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>
