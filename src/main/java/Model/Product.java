@@ -10,6 +10,7 @@ public class Product {
 	private boolean isAvailable;
 	private Category category;
 
+	// Cons
 	public Product(String name, BigDecimal price, int amount, Category category) {
 		this.name = name;
 		this.price = price;
@@ -19,13 +20,17 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Model.Product{" +
-				"id=" + id +
-				", name='" + name + '\'' +
-				", price=" + price +
-				", amount=" + amount +
-				", isAvailable=" + isAvailable +
-				", category=" + category +
-				'}';
+		return "Model.Product{" + "\n" +
+				"id=" + id + "\n" +
+				", name='" + name + '\'' + "\n" +
+				", price=" + price + "\n" +
+				", amount=" + amount + "\n" +
+				", isAvailable=" + isAvailable + "\n" +
+				", category=" + category + "\n" +
+				"}\n";
 	}
+
+	public int getAmount() { return amount; }
+
+	public void setAmount(int amount) { this.amount = amount; }
 }

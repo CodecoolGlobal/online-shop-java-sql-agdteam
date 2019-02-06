@@ -1,87 +1,58 @@
 package Model;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public class Customer {
-	private String name;
-	private String login;
-	private List<Basket> basketList;
-	private boolean isAdmin;
-	private List<Basket> orders;
-	private List<Feedback> feedbackList;
+    private int id;
+    private boolean isAdmin;
+    private String login;
+    private String password;
+    private String name;
+    private Basket basket;
+    private List<Order> orders;
+    private List<Feedback> feedbacks;
 
-	public Customer(String name, String login, List<Basket> basketList, boolean isAdmin, List<Basket> orders, List<Feedback> feedbackList) {
-		this.name = name;
-		this.login = login;
-		this.basketList = basketList;
-		this.isAdmin = isAdmin;
-		this.orders = orders;
-		this.feedbackList = feedbackList;
-	}
+    public Customer(int id,
+                    boolean isAdmin,
+                    String login,
+                    String password,
+                    String name,
+                    Basket basket,
+                    List<Order> orders,
+                    List<Feedback> feedbacks) {
+        this.id = id;
+        this.isAdmin = isAdmin;
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.basket = basket;
+        this.orders = orders;
+        this.feedbacks = feedbacks;
+    }
 
-	public void addToBasket(Product product) {
+    // Getters & Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+    public boolean getIsAdmin() { return isAdmin; }
+    public void setIsAdmin(boolean isAdmin) { this.isAdmin = isAdmin; }
+    public String getLogin() { return login; }
+    public void setLogin(String login) { this.login = login; }
+    public String getPassword() { return password; }
+    public void setPasswordt(String password) { this.password = password; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public List<Order> getOrders() { return orders; }
+    public void setOrders(List<Order> orders) { this.orders = orders; }
+    public List<Feedback> getFeedbacks() { return feedbacks; }
+    public void setFeedbacks(List<Feedback> feedbacks) { this.feedbacks = feedbacks; }
 
-	}
+    // Basket CRUD
+    public void addToBasket(Product product, int amount) { basket.addProduct(product, amount); }
+    public Basket getBasket() { return basket; }
+    public void removeFromBasket(Product product) { basket.deleteProduct(product); }
+    public void updateBasket(Basket basket) { this.basket = basket; }
+    public void clearBasket() { basket = new Basket(); }
 
-	public Product getFromBasket(int index){
-
-		return new Product("pan", new BigDecimal(123), 132, new Category("Category"));
-	}
-
-	public void del(int index) {
-
-	}
-
-	public void updateBasket(int index) { //todo where I find date to update
-
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public List<Basket> getBasketList() {
-		return basketList;
-	}
-
-	public void setBasketList(List<Basket> basketList) {
-		this.basketList = basketList;
-	}
-
-	public boolean isAdmin() {
-		return isAdmin;
-	}
-
-	public void setAdmin(boolean admin) {
-		isAdmin = admin;
-	}
-
-	public List<Basket> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<Basket> orders) {
-		this.orders = orders;
-	}
-
-	public List<Feedback> getFeedbackList() {
-		return feedbackList;
-	}
-
-	public void setFeedbackList(List<Feedback> feedbackList) {
-		this.feedbackList = feedbackList;
-	}
+    // Feedback
+    public void addFeedback(Feedback feedbackToAdd) { feedbacks.add(feedbackToAdd); }
 }
