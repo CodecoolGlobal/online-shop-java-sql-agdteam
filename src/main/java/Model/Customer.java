@@ -13,7 +13,7 @@ public class Customer {
     private List<Feedback> feedbacks;
 
     public Customer(int id,
-                    boolean isAdmin,
+                    int isAdmin,
                     String login,
                     String password,
                     String name,
@@ -21,7 +21,7 @@ public class Customer {
                     List<Order> orders,
                     List<Feedback> feedbacks) {
         this.id = id;
-        this.isAdmin = isAdmin;
+        this.isAdmin = isAdmin == 1;
         this.login = login;
         this.password = password;
         this.name = name;

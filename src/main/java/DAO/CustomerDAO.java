@@ -3,6 +3,7 @@ package DAO;
 import Model.Basket;
 import Model.Customer;
 import Model.Feedback;
+import Model.Order;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,12 +22,12 @@ public class CustomerDAO {
 		return new ArrayList<Customer>();
 	}
 
-	public void createTable(){
+	public void createTableCustomer(){
 		String createTableSqlCustomer =
 				"CREATE TABLE Customer(\n" +
 						"ID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-						"LOGIN TEXT\n" +
-						"PASSWORD TEXT\n" +
+						"LOGIN TEXT,\n" +
+						"PASSWORD TEXT,\n" +
 						"NAME TEXT,\n" +
 						"SURNAME TEXT,\n" +
 						"CITY TEXT,\n" +
@@ -49,7 +50,7 @@ public class CustomerDAO {
 	}
 
 	public List<Customer> getAll(){
-		setResultSetByQuery("SELECT * FROM Person");
+		sqlConnector.setResultByQuery("SELECT * FROM Person");
 		List<Customer> customerList = new ArrayList<Customer>();
 		try {
 			while (sqlConnector.getResultSet().next()){
@@ -65,7 +66,8 @@ public class CustomerDAO {
 
 	public Customer get(int index) {
 
-		return new Customer("test", "test", new ArrayList<Basket>(), true, new ArrayList<Basket>(), new ArrayList<Feedback>());
+//		return new Customer("test", true,"test", "password",  new Basket(), new ArrayList<Basket>(),  new ArrayList<Basket>(), new ArrayList<Feedback>());
+	return null;
 	}
 
 	public void update(int index) {
@@ -77,23 +79,49 @@ public class CustomerDAO {
 	}
 
 	private Customer customerByCurrentResultSet(){
-		ResultSet resultSet = sqlConnector.getResultSet();
+//		ResultSet resultSet = sqlConnector.getResultSet();
+//		try{
+//			return new Customer(
+//					resultSet.getInt("ID"),
+//					resultSet.getInt("ISADMIN"),
+//					resultSet.getString("LOGIN"),
+//					resultSet.getString("PASSWORD"),
+//					resultSet.getString("NAME"),
+//					resultSet.getInt("ORDERS"),
+//					resultSet.getInt("FEEDBACKLIST")
+//			);
+//
+//		}catch (SQLException ex){
+//			ex.printStackTrace();
+//		} return new Customer("NN","login",List<Basket>,true,list, list);
+
+	return null;
+	}
+
+
+
+
+	private List<Order> createListWithOrders(int id){
+		sqlConnector.setResultByQuery("SELECT * FROM ORDERS WHERE id=" + id);
+		List<Order> ordersList = new ArrayList<Order>();
 		try{
-			return new Customer(
-					resultSet.getInt("ID"),
-					resultSet.getString("LOGIN"),
-					resultSet.getString("PASSWORD"),
-					resultSet.getString("NAME"),
-					resultSet.getInt("ISADMIN"),
-					resultSet.getInt("ORDERS"),
-					resultSet.getInt("FEEDBACKLIST")
-			);
-			//TODO: warunki do isadmin i jesli pusta lista, lub pelna to na liste przerobic.
-			//TODO: pobrac dane z innych tabel
+			while(sqlConnector.getResultSet().next()){
+				ordersList.add(ordersByCurrentResultSet());
+			}
 		}catch (SQLException ex){
 			ex.printStackTrace();
-		} return new Customer("NN","login",List<Basket>,true,list, list);
+		}
+		return ordersList;
 	}
+
+	private Order ordersByCurrentResultSet(){
+
+		ResultSet resultSet = sqlConnector.getResultSet();
+
+
+		return null;
+	}
+
 
 	private void setResultSetByQuery(String query){
 		try{

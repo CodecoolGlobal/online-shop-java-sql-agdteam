@@ -53,12 +53,12 @@ public class SQLConnector {
 		if (resultSet==null){
 			System.out.println("DataBase not found, creating AGDShop...");
 			CustomerDAO customerDAO = new CustomerDAO(this);
-			customerDAO.createTable();
+//			customerDAO.createTable();
 		}
 
 	}
 
-	private void setResultByQuery(String query) {
+	public void setResultByQuery(String query) {
 		try{
 			resultSet = statement.executeQuery(query);
 		}catch (Exception ex){

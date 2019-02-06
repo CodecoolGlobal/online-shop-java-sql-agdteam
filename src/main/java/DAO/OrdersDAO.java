@@ -8,6 +8,7 @@ import java.util.List;
 public class OrdersDAO {
 	private SQLConnector sqlConnector;
 
+
 	public OrdersDAO(SQLConnector sqlConnector) {
 		this.sqlConnector = sqlConnector;
 	}
@@ -17,13 +18,29 @@ public class OrdersDAO {
 		return new ArrayList<Order>();
 	}
 
+	public void createTable(){
+		String createTableSqlOrders =
+				"CREATE TABLE Orders(\n" +
+						"ID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+						"LOGIN TEXT\n" +
+						"PASSWORD TEXT\n" +
+						"NAME TEXT,\n" +
+						"SURNAME TEXT,\n" +
+						"CITY TEXT,\n" +
+						"ISADMIN INTEGER\n" +
+						");";
+//		executeUpdateAndCommit(createTableSqlCustomer);
+	}
+
+
 	public void add(Order product) {
 
 	}
 
 	public Order get(int index) {
 
-		return new Order();
+//		return new Order();
+		return null;
 	}
 
 	public void update(int index) {
