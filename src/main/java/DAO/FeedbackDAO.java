@@ -8,14 +8,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeedbackDAO {
+public class FeedbackDAO implements InterfaceDAO<Feedback> {
 	private SQLConnector sqlConnector;
 
 	public FeedbackDAO(SQLConnector sqlConnector) {
 		this.sqlConnector = sqlConnector;
 	}
 
-	public List<Feedback> getListAll(){
+	public List<Feedback> getAll(){
 		sqlConnector.setResultSetByQuery("SELECT * FROM Feedback");
 		List<Feedback> feedbackList = new ArrayList<>();
 		try{
@@ -84,6 +84,10 @@ public class FeedbackDAO {
 				"DELETE FROM FEEDBACK " +
 						"WHERE ID = "+ id +";";
 		executeUpdateAndCommit(removeFeedbackQuery);
+
+	}
+
+	public void delete(Feedback feedback){
 
 	}
 

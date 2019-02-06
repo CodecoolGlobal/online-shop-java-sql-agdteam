@@ -10,14 +10,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductsDAO {
+public class ProductsDAO implements InterfaceDAO<Product> {
     private SQLConnector sqlConnector;
 
     public ProductsDAO(SQLConnector sqlConnector) {
         this.sqlConnector = sqlConnector;
     }
 
-    public List<Product> getAllProductsList() {
+    public List<Product> getAll() {
 
         sqlConnector.setResultSetByQuery("SELECT * FROM Products");
         List<Product> productList = new ArrayList<>();
@@ -42,11 +42,11 @@ public class ProductsDAO {
         return null;
     }
 
-    public void update(int index) {
+    public void update(int id, Product updatedProduct) {
 
     }
 
-    public void del(int index) {
+    public void delete(Product product) {
 
     }
 

@@ -1,11 +1,13 @@
 package DAO;
 
+import Model.Category;
 import Model.Customer;
 import Model.Feedback;
 
 import java.io.File;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.List;
 
 public class SQLConnector {
 	private  Connection connection;
@@ -51,18 +53,15 @@ public class SQLConnector {
 	}
 
 	private void createTableIfDataFileIsEmpty() {
-		setResultSetByQuery("SELECT * FROM CUSTOMER");
-		CustomerDAO customerDAO = new CustomerDAO(this);
-
+		setResultSetByQuery("SELECT * FROM Categories");
+		CategoryDAO categoryDAO = new CategoryDAO(this);
 		if (resultSet==null) {
 			System.out.println("DataBase not found, creating AGDShop...");
-			customerDAO.createTableCustomer();
+			categoryDAO.createCategoriesTable();
 		}else{
-//			customerDAO.add(testAddCustomer());
-//            System.out.println(customerDAO.getListAll().get(0));
+//			categoryDAO.addCategory(testAddCategory());
+//			System.out.println(categoryDAO.getAllCategoryList());
 			}
-
-
 	}
 
 	public Feedback testAddFeedback(){
@@ -73,6 +72,10 @@ public class SQLConnector {
 	public Customer testAddCustomer(){
 		return new Customer(0,0,"admin", "haslo",
 				"Wojtek", null);
+	}
+
+	public Category testAddCategory(){
+		return new Category("elektronika", 1);
 	}
 
 	public void setResultSetByQuery(String query) {
@@ -100,8 +103,13 @@ public class SQLConnector {
 
 	}
 
-	public void executeUpdateOnDB() {
-
+	public void executeUpdateOnDB(String update) {
+		try{
+			statement.executeUpdate(update);
+			connection.commit();
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
 	}
 
 

@@ -16,6 +16,10 @@ public class Category{
 		this.id = id;
 	}
 
+	public int getId() {
+		return id;
+	}
+
 	public boolean isAvailable() {
 		return isAvailable;
 	}
@@ -24,8 +28,13 @@ public class Category{
 		isAvailable = isAvailable;
 	}
 
+	public String getName() {
+		return name;
+	}
 
-
+	public void setName(String name) {
+		this.name = name;
+	}
 /*
 	@Override
 	public String toString() {

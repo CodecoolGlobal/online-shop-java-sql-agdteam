@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerDAO {
+public class CustomerDAO implements InterfaceDAO<Customer> {
 	private SQLConnector sqlConnector;
 
 	public CustomerDAO(SQLConnector sqlConnector) {
@@ -87,11 +87,11 @@ public class CustomerDAO {
 	return null;
 	}
 
-	public void update(int index) {
+	public void update(int index, Customer updatedCustomer) {
 
 	}
 
-	public void del(int index) {
+	public void delete(Customer customerToDelete) {
 
 	}
 
