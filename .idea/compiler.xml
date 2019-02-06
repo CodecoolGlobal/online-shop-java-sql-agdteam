@@ -10,5 +10,8 @@
         <module name="online-shop-java-sql-agdteam" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="AgdShop" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
