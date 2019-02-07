@@ -1,5 +1,11 @@
 package View;
 
+import Model.Product;
+
+import DAO.CategoryDAO;
+import DAO.ProductsDAO;
+import Model.Category;
+
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -27,7 +33,7 @@ public class View {
 		return getUserMenuChoice("Admin Crud:", CRUD_PRODUCT_MENU_OPTIONS);
 	}
 
-	private int getUserMenuChoice(String menuTitle, List<String> menuOptions){
+	public int getUserMenuChoice(String menuTitle, List<String> menuOptions){
 		System.out.print("\033[H\033[2J");
 		showMenuFromTitleList(menuTitle, menuOptions);
 		System.out.print("Please select menu option:");
@@ -47,7 +53,7 @@ public class View {
 	}
 
 	public BigDecimal getPrice(){
-		System.out.println("Price: ");
+		System.out.print("Price: ");
 		return validatorInput.getBigDecimal();
 	}
 
@@ -77,9 +83,22 @@ public class View {
 		return validatorInput.getIntInput(1000);
 	}
 
+	public String getCategoryName(){
+		System.out.print("Category name :");
+		return validatorInput.getWord();
+	}
+
+
 	public void displayInvalidNameOrPassword() {
 		System.out.println("Invalid Name or Password");
 		pause();
+	}
+
+	public String getIdCategory(CategoryDAO categoryDAO) {
+		categoryDAO.getAll().stream().map(e -> e.getId() + " : " + e.getName()).forEach(System.out::println);
+		System.out.print("Category: ");
+		return categoryDAO.getCategoryById(validatorInput.getIntInput(categoryDAO.getAll().size())).getName();
+
 	}
 
     private void showMenuFromTitleList(String menuTitle, List<String> menuOptions){
@@ -90,9 +109,10 @@ public class View {
 	    System.out.println("0. Exit");
     }
 
+    public void showAllList(List<?> productList) {
+        productList.forEach(System.out::println);
 
-
-
+    }
 
 
 	public void printString(String string) {
@@ -109,4 +129,23 @@ public class View {
 		scanner.nextLine();
 	}
 
+	public void printSingleProduct(Product product, int id){
+        String printProduct = String.format(
+                "Id: %d - %s - Price = %.2f, Amount = %d",
+                id,
+                product.getName(),
+                product.getPrice(),
+                product.getAmount());
+        System.out.println(printProduct);
+    }
+
+    public int getIdOfItem(int max){
+        System.out.println("Please select id of item you want to buy");
+        return validatorInput.getIntInput(max);
+    }
+
+    public int getAmountOfItem(int max){
+        System.out.println("Please specify quantity you want to buy");
+        return validatorInput.getIntInput(max);
+    }
 }

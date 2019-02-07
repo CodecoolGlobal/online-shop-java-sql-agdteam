@@ -6,6 +6,7 @@ public class Basket {
 	private Iterator<Product> iterator;
 	private List<Product> products;
 
+
 	public Basket() {
 		products = new ArrayList<>();
 	}
@@ -13,6 +14,9 @@ public class Basket {
 	public ProductIterator getIterator() {
 		return new ProductIterator(products); }
 
+	public List<Product> getProducts() {
+		return products;
+	}
 
 	public void addProduct(Product product, int amount) {
 		product.setAmount(amount);

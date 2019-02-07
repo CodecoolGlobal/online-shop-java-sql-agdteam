@@ -88,11 +88,11 @@ public class ProductsDAO implements InterfaceDAO<Product> {
     public void update(int id, Product updatedProduct) {
         String updateProduct =
                 "UPDATE Products SET" +
-                        " NAME = '" + updatedProduct.getName() + "," +
-                        " PRICE = '" + updatedProduct.getPrice() + "," +
-                        " AMOUNT = '" + updatedProduct.getAmount() + "," +
-                        " CATEGORYID = '" + updatedProduct.getCategory().getId() +
-                        " WHERE ID = " + String.valueOf(id) + ";";
+                        " NAME = '" + updatedProduct.getName() + "'," +
+                        " PRICE = " + updatedProduct.getPrice().floatValue() + "," +
+                        " AMOUNT = " + updatedProduct.getAmount() + "," +
+                        " CATEGORYID = " + updatedProduct.getCategory().getId() +
+                        " WHERE PRODUCTID = " + String.valueOf(id) + ";";
         sqlConnector.executeUpdateOnDB(updateProduct);
     }
 
@@ -113,6 +113,7 @@ public class ProductsDAO implements InterfaceDAO<Product> {
                                 resultSet.getInt("ISAVAILABLE"));
 
             Product resultProduct = new Product(
+                    resultSet.getInt("PRODUCTID"),
                     resultSet.getString("NAME"),
                     resultSet.getBigDecimal("PRICE"),
                     resultSet.getInt("AMOUNT"),
