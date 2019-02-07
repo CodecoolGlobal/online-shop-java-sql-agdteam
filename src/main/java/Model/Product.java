@@ -17,6 +17,27 @@ public class Product {
 		this.category = category;
 	}
 
+	public Product(int id, String name, BigDecimal price, int amount, Category category){
+		this(name, price, amount, category);
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
 	@Override
 	public String toString() {
 		return "Model.Product{" + "\n" +

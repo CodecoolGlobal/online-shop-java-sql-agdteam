@@ -3,7 +3,6 @@ package Service;
 import DAO.*;
 import View.*;
 import Model.Customer;
-import java.util.*;
 
 import static View.View.pause;
 
@@ -25,6 +24,7 @@ public class ServiceAdmin {
 		this.productsDAO = new ProductsDAO(sqlConnector);
 		this.viewAdmin = new ViewAdmin();
 		this.view = view;
+		this.serviceUtilityAdmin = new ServiceUtilityAdmin(customerDAO, feedbackDAO, ordersDAO, productsDAO);
 	}
 
 
@@ -34,18 +34,18 @@ public class ServiceAdmin {
 			choice = viewAdmin.getAdminMenuChoice();
 			switch (choice) {
 				case 1:
-					viewAdmin.showAllProduct(productsDAO.getAll());
-					// todo show all product
+					viewAdmin.showAllList(productsDAO.getAll());
 					pause();
 					break;
 				case 2:
-					// todo show product by category
+					viewAdmin.showAllList(productsDAO.getAll());
 					break;
 				case 3:
-					// todo show all feedback
+					viewAdmin.showAllFeedback(feedbackDAO.getAll());
+					pause();
 					break;
 				case 4:
-					// todo edit By Id
+					serviceUtilityAdmin.crudCategories(view);
 					break;
 				case 5:
 					// todo remowe all unavaiable

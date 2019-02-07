@@ -19,7 +19,9 @@ public class ProductsDAO implements InterfaceDAO<Product> {
 
     public List<Product> getAll() {
 
-        sqlConnector.setResultSetByQuery("SELECT * FROM Products");
+        sqlConnector.setResultSetByQuery("SELECT * FROM Products " +
+                "INNER JOIN Categories " +
+                "ON Products.CATEGORYID = Categories.CATEGORYID");
         List<Product> productList = new ArrayList<>();
 
         try {
@@ -34,29 +36,64 @@ public class ProductsDAO implements InterfaceDAO<Product> {
     }
 
     public void add(Product product) {
-
+        String addProduct =
+                "INSERT INTO Products (NAME, PRICE, AMOUNT, CATEGORYID) " +
+                "VALUES (" +
+                "'" + product.getName() + "'," +
+                "'" + product.getPrice() + "'," +
+                "'" + product.getAmount() + "'," +
+                "'" + product.getCategory().getId() + "'" +
+                ");";
+        sqlConnector.executeUpdateOnDB(addProduct);
     }
 
-    public Product get(int index) {
+    public void createProductsTable(){
+        String createProductsTable =
+                "CREATE TABLE Products(" +
+                "PRODUCTID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "NAME VARCHAR," +
+                "PRICE REAL," +
+                "AMOUNT INTEGER," +
+                "CATEGORYID INTEGER," +
+                "FOREIGN KEY(CATEGORYID) REFERENCES Categories(CATEGORYID)" +
+                ");";
+        sqlConnector.executeUpdateOnDB(createProductsTable);
+    }
 
-        return null;
+    public Product getProductById(int productId) {
+        String getByIDQuery = "SELECT * FROM Products WHERE PRODUCTID = " +
+                productId + ";";
+        sqlConnector.setResultSetByQuery(getByIDQuery);
+        return productByCurrentResultSet();
     }
 
     public void update(int id, Product updatedProduct) {
-
+        String updateProduct =
+                "UPDATE Products SET" +
+                        " NAME = '" + updatedProduct.getName() + "," +
+                        " PRICE = '" + updatedProduct.getPrice() + "," +
+                        " AMOUNT = '" + updatedProduct.getAmount() + "," +
+                        " CATEGORYID = '" + updatedProduct.getCategory().getId() +
+                        " WHERE ID = " + String.valueOf(id) + ";";
+        sqlConnector.executeUpdateOnDB(updateProduct);
     }
 
     public void delete(Product product) {
-
+        String deleteProduct =
+                "DELETE FROM Products WHERE PRODUCTID = " +
+                product.getId() + ";";
+        sqlConnector.executeUpdateOnDB(deleteProduct);
     }
 
     private Product productByCurrentResultSet() {
         ResultSet resultSet = sqlConnector.getResultSet();
 
         try {
-            CategoryDAO categoryDAO = new CategoryDAO(sqlConnector);
-            Category category = categoryDAO.getCategoryById(resultSet.getInt("CATEGORYID"));
-            System.out.println(resultSet.wasNull() + " <-----------------------------------");
+            Category category =
+                    new Category(resultSet.getInt("CATEGORYID"),
+                                 resultSet.getString("CATEGORYNAME"),
+                                resultSet.getInt("ISAVAILABLE"));
+
             Product resultProduct = new Product(
                     resultSet.getString("NAME"),
                     resultSet.getBigDecimal("PRICE"),

@@ -1,5 +1,6 @@
 package View;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class ValidatorInput {
@@ -26,11 +27,19 @@ public class ValidatorInput {
     }
 
     public String getUserName(){ //todo validate
-        return inputScanner.nextLine();
+        return inputScanner.next();
     }
 
     public String getUserLogin(){
-        return inputScanner.nextLine();
+        return inputScanner.next();
+    }
+
+    public BigDecimal getBigDecimal(){
+        return new BigDecimal(inputScanner.next());
+    }
+
+    public String getWord(){
+        return inputScanner.next();
     }
 
     public String getUserPassword(){ //todo validate
