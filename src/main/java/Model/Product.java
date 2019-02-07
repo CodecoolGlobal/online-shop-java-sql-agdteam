@@ -40,14 +40,8 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Model.Product{" + "\n" +
-				"id=" + id + "\n" +
-				", name='" + name + '\'' + "\n" +
-				", price=" + price + "\n" +
-				", amount=" + amount + "\n" +
-				", isAvailable=" + isAvailable + "\n" +
-				", category=" + category + "\n" +
-				"}\n";
+		return "id=" + id + ", name=" + name + ", price=" + price + ", amount=" + amount + ", isAvailable=" + ((isAvailable) ? " Yes " : " No ") + "category " + category.getName();
+
 	}
 
 	public int getAmount() { return amount; }
