@@ -16,6 +16,7 @@ public class ServiceAdmin {
 	private ProductsDAO productsDAO;
 	private Customer adminUser;
 	private CategoryDAO categoryDAO;
+	private SQLConnector sqlConnector;
 
 	public ServiceAdmin(Customer adminUser, CustomerDAO customerDAO, SQLConnector sqlConnector, View view) {
 		this.adminUser = adminUser;
@@ -25,6 +26,7 @@ public class ServiceAdmin {
 		this.productsDAO = new ProductsDAO(sqlConnector);
 		this.categoryDAO = new CategoryDAO(sqlConnector);
 		this.viewAdmin = new ViewAdmin();
+		this.sqlConnector = sqlConnector;
 		this.view = view;
 		this.serviceUtilityAdmin = new ServiceUtilityAdmin(customerDAO, feedbackDAO, ordersDAO, productsDAO, categoryDAO, view);
 	}
@@ -50,6 +52,7 @@ public class ServiceAdmin {
 					serviceUtilityAdmin.crudCategories();
 					break;
 				case 5:
+//					productsDAO.delete(productsDAO.getProductById(view.getId(productsDAO.getAll().size())));
 					// todo remowe all unavaiable
 					break;
 				case 0:
