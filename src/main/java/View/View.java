@@ -1,5 +1,7 @@
 package View;
 
+import Model.Product;
+
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -47,10 +49,10 @@ public class View {
 	    System.out.println("0. Exit");
     }
 
+	public void showAllList(List<?> productList) {
+		productList.forEach(System.out::println);
 
-
-
-
+	}
 
 	public void printString(String string) {
 
