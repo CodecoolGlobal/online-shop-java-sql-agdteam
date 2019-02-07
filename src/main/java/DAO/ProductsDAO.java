@@ -61,7 +61,8 @@ public class ProductsDAO implements InterfaceDAO<Product> {
     }
 
     public Product getProductById(int productId) {
-        String getByIDQuery = "SELECT * FROM Products WHERE PRODUCTID = " +
+        String getByIDQuery = "SELECT * FROM Products LEFT JOIN CATEGORIES" +
+                " ON CATEGORIES.CATEGORYID = PRODUCTS.CATEGORYID WHERE PRODUCTID = " +
                 productId + ";";
         sqlConnector.setResultSetByQuery(getByIDQuery);
         return productByCurrentResultSet();
