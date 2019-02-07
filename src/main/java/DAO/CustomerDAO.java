@@ -15,32 +15,35 @@ public class CustomerDAO implements InterfaceDAO<Customer> {
 		this.sqlConnector = sqlConnector;
 	}
 
-	public List<Customer> getListAll(){
-
-		return new ArrayList<Customer>();
-	}
 
 	public void createTableCustomer(){
 		String createTableSqlCustomer =
 				"CREATE TABLE Customer(" +
 						"ID INTEGER PRIMARY KEY AUTOINCREMENT," +
 						"ISADMIN INTEGER," +
-						"LOGIN TEXT," +
+						"LOGIN TEXT UNIQUE," +
 						"PASSWORD TEXT," +
-						"NAME TEXT, "+
-						"ORDERS INTEGER," +
-						"FEEDBACK INTEGER" +
+						"NAME TEXT"+
 						");";
 		executeUpdateAndCommit(createTableSqlCustomer);
 	}
 
-	public void add(Customer product) {
+	public void add(Customer customer) {
+		String addCustomerQuery =
+				"INSERT INTO Customer (ISADMIN, LOGIN, PASSWORD, NAME) " +
+						"VALUES (" +
+						"'"+ customer.isAdmin() +"'," +
+						"'"+ customer.getLogin() +"'," +
+						"'"+ customer.getPassword() +"'," +
+						"'"+ customer.getName() +"'" +
+						");";
+		executeUpdateAndCommit(addCustomerQuery);
 
 	}
 
 	public List<Customer> getAll(){
-		sqlConnector.setResultSetByQuery("SELECT * FROM Person");
-		List<Customer> customerList = new ArrayList<Customer>();
+		sqlConnector.setResultSetByQuery("SELECT * FROM Customer");
+		List<Customer> customerList = new ArrayList<>();
 		try {
 			while (sqlConnector.getResultSet().next()){
 				customerList.add(customerByCurrentResultSet());
@@ -66,9 +69,7 @@ public class CustomerDAO implements InterfaceDAO<Customer> {
 						resultSet.getInt("ISADMIN"),
 						resultSet.getString("LOGIN"),
 						resultSet.getString("PASSWORD"),
-						resultSet.getString("NAME"),
-						null
-						 //TODO: podpiac pod inne DAO
+						resultSet.getString("NAME")
 				);
 			}catch (SQLException ex){
 				ex.printStackTrace();
@@ -88,11 +89,24 @@ public class CustomerDAO implements InterfaceDAO<Customer> {
 	}
 
 	public void update(int index, Customer updatedCustomer) {
+		String updateCustomer =
+				"UPDATE Customer " +
+						"SET " +
+						"ISADMIN = '"+ updatedCustomer.isAdmin() +"'," +
+						"LOGIN = '"+ updatedCustomer.getLogin() +"'," +
+						"PASSWORD ='"+ updatedCustomer.getPassword() +"'," +
+						"NAME ='"+ updatedCustomer.getName() + "' " +
+						"WHERE ID = " + updatedCustomer.getId()+
+						");";
+		executeUpdateAndCommit(updateCustomer);
 
 	}
 
 	public void delete(Customer customerToDelete) {
-
+		String removeByIdQuery =
+				"DELETE FROM CUSTOMER " +
+						"WHERE ID = " + customerToDelete.getId() + ";";
+		executeUpdateAndCommit(removeByIdQuery);
 	}
 
 	private Customer customerByCurrentResultSet(){
@@ -103,11 +117,7 @@ public class CustomerDAO implements InterfaceDAO<Customer> {
 					resultSet.getInt("ISADMIN"),
 					resultSet.getString("LOGIN"),
 					resultSet.getString("PASSWORD"),
-					resultSet.getString("NAME"),
-					null
-
-//					resultSet.getInt("ORDERS"),
-//					resultSet.getInt("FEEDBACKLIST") TODO: pobrac z innych DAO
+					resultSet.getString("NAME")
 			);
 
 		}catch (SQLException ex){
