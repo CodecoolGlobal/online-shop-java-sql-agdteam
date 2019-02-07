@@ -113,6 +113,7 @@ public class ProductsDAO implements InterfaceDAO<Product> {
                                 resultSet.getInt("ISAVAILABLE"));
 
             Product resultProduct = new Product(
+                    resultSet.getInt("PRODUCTID"),
                     resultSet.getString("NAME"),
                     resultSet.getBigDecimal("PRICE"),
                     resultSet.getInt("AMOUNT"),

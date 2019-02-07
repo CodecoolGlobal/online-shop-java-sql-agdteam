@@ -1,5 +1,9 @@
 package View;
 
+import DAO.CategoryDAO;
+import DAO.ProductsDAO;
+import Model.Category;
+
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -86,6 +90,13 @@ public class View {
 	public void displayInvalidNameOrPassword() {
 		System.out.println("Invalid Name or Password");
 		pause();
+	}
+
+	public String getIdCategory(CategoryDAO categoryDAO) {
+		categoryDAO.getAll().stream().map(e -> e.getId() + " : " + e.getName()).forEach(System.out::println);
+		System.out.print("Category: ");
+		return categoryDAO.getCategoryById(validatorInput.getIntInput(categoryDAO.getAll().size())).getName();
+
 	}
 
     private void showMenuFromTitleList(String menuTitle, List<String> menuOptions){
