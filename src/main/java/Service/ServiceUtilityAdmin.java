@@ -69,7 +69,7 @@ public class ServiceUtilityAdmin {
 		if ((id == -1)) {
 			productsDAO.add(new Product(name, price, amount, category));
 		} else {
-			productsDAO.add(new Product(id, name, price, amount, category));
+			productsDAO.update(id, new Product(id, name, price, amount, category));
 		}
 	}
 
