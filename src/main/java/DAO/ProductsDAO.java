@@ -56,7 +56,7 @@ public class ProductsDAO implements InterfaceDAO<Product> {
         try {
             CategoryDAO categoryDAO = new CategoryDAO(sqlConnector);
             Category category = categoryDAO.getCategoryById(resultSet.getInt("CATEGORYID"));
-
+            System.out.println(resultSet.wasNull() + " <-----------------------------------");
             Product resultProduct = new Product(
                     resultSet.getString("NAME"),
                     resultSet.getBigDecimal("PRICE"),

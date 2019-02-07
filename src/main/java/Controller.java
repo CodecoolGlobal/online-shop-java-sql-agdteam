@@ -13,10 +13,12 @@ public class Controller {
 	public void mainLoop() {
 		int choice;
 		do {
-			choice = view.getUserMainMenuChoice();
+			choice = view.getMainMenuChoice();
 			if (choice == 1) {
 				serviceMain.handleLogin();
 			} else if (choice == 2) {
+				serviceMain.handleCreateAccount();
+			} else if (choice == 3) {
 				serviceMain.handleWithOutLogin();
 			}
 		} while (choice != 0);

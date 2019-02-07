@@ -29,6 +29,10 @@ public class ValidatorInput {
         return inputScanner.nextLine();
     }
 
+    public String getUserLogin(){
+        return inputScanner.nextLine();
+    }
+
     public String getUserPassword(){ //todo validate
         return inputScanner.nextLine();
     }
