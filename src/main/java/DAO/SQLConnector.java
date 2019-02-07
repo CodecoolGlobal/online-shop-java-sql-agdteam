@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Random;
 
 public class SQLConnector {
 	private  Connection connection;
@@ -56,20 +55,15 @@ public class SQLConnector {
 	}
 
 	private void createTableIfDataFileIsEmpty() {
-
-			setResultSetByQuery("SELECT * FROM CUSTOMER");
-			CustomerDAO customerDAO = new CustomerDAO(this);
-
+		setResultSetByQuery("SELECT * FROM Orders");
+		OrdersDAO ordersDAO = new OrdersDAO(this);
 		if (resultSet==null) {
-
 			System.out.println("DataBase not found, creating AGDShop...");
-			customerDAO.createTableCustomer();
+			ordersDAO.createOrdersTable();
 		}else{
-			customerDAO.add(testAddCustomer());
+//			System.out.println(ordersDAO.getAll());
 			}
 	}
-
-
 
 	public Feedback testAddFeedback(){
 	    return new Feedback(0,"Nazwa", "Wiadomosc",
@@ -77,9 +71,7 @@ public class SQLConnector {
     }
 
 	public Customer testAddCustomer(){
-		Random newRandom = new Random();
-		int rand = (newRandom.nextInt())*10;
-		return new Customer(0,0,"admin"+rand, "haslo",
+		return new Customer(0,0,"admin", "haslo",
 				"Wojtek");
 	}
 
@@ -113,7 +105,9 @@ public class SQLConnector {
 		return new SQLConnector();
 	}
 
+	public void connection() {
 
+	}
 
 	public void executeUpdateOnDB(String update) {
 		try{
