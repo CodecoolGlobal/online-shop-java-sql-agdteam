@@ -51,7 +51,9 @@ public class ServiceCustomer {
 				case 1:
 					List<Product> allProd = productsDAO.getAll();
 					for (int i = 0; i < allProd.size(); i++){
-					    view.printSingleProduct(allProd.get(i), i);
+						if(allProd.get(i).getAmount()>0) {
+							view.printSingleProduct(allProd.get(i), i);
+						}
                     }
 					break;
 				case 2:
