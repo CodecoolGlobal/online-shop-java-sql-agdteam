@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ServiceCustomer {
-	private ServiceUtilityAdmin serviceUtilityAdmin;
+	private ServiceUtilityCustomer serviceUtilityCustomer;
 	private ViewCustomer viewCustomer;
 	private View view;
 	private CustomerDAO customerDAO;
@@ -36,6 +36,7 @@ public class ServiceCustomer {
 		this.ordersDAO = new OrdersDAO(sqlConnector);
 		this.productsDAO = new ProductsDAO(sqlConnector);
 		this.view = view;
+		this.serviceUtilityCustomer = new ServiceUtilityCustomer(customerDAO, feedbackDAO, ordersDAO, productsDAO, customer);
 	}
 
 	public void run() {
@@ -44,15 +45,31 @@ public class ServiceCustomer {
 			choice = view.getUserMenuChoice("Customer Menu", CUSTOMER_MENU_OPTIONS);
 			switch (choice){
 				case 1:
-					List<Product> allProducts = productsDAO.getAll();
-					view.showAllList(allProducts);
+					List<Product> allProd = productsDAO.getAll();
+					for (int i = 0; i < allProd.size(); i++){
+					    view.printSingleProduct(allProd.get(i), i);
+                    }
 					break;
 				case 2:
-					view.showAllList(customer.getBasket().getProducts());
+					List<Product> basketProducts = customer.getBasket().getProducts();
+				    if (basketProducts.size() == 0){ view.printString("Your basket is empty");}
+					for (int i =0; i < basketProducts.size();i++){
+					    view.printSingleProduct(basketProducts.get(i), i);
+                    }
 					break;
 				case 3:
-					//add product to my basket
-					break;
+                    List<Product> allProducts = productsDAO.getAll();
+				    for (int i = 0; i < allProducts.size(); i++){
+				    view.printSingleProduct(allProducts.get(i) , i);
+                    }
+					int itemId = view.getIdOfItem(allProducts.size());
+				    Product chosenProduct = allProducts.get(itemId);
+				    int totalAmount = chosenProduct.getAmount();
+				    int itemAmount = view.getAmountOfItem(chosenProduct.getAmount());
+				    customer.addToBasket(chosenProduct, itemAmount);
+                    Product updatedProduct = new Product(chosenProduct.getName(), chosenProduct.getPrice(), totalAmount - itemAmount, chosenProduct.getCategory());
+					productsDAO.update(chosenProduct.getId(), updatedProduct);
+                    break;
 				case 4:
 					//Place an order
 					break;
