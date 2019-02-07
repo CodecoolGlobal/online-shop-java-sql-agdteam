@@ -47,7 +47,7 @@ public class View {
 	}
 
 	public BigDecimal getPrice(){
-		System.out.println("Price: ");
+		System.out.print("Price: ");
 		return validatorInput.getBigDecimal();
 	}
 
@@ -76,6 +76,12 @@ public class View {
 		System.out.print("Amount :");
 		return validatorInput.getIntInput(1000);
 	}
+
+	public String getCategoryName(){
+		System.out.print("Category name :");
+		return validatorInput.getWord();
+	}
+
 
 	public void displayInvalidNameOrPassword() {
 		System.out.println("Invalid Name or Password");
