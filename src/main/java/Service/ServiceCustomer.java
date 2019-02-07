@@ -25,6 +25,6 @@ public class ServiceCustomer {
 	}
 
 	public void run() {
-
+//		viewAdmin.showProductById(Collections.singletonList(productsDAO.getProductById(view.getId(productsDAO.getAll().size()))));
 	}
 }

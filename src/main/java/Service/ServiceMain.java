@@ -1,17 +1,15 @@
 package Service;
 
 import DAO.*;
-import Model.Customer;
-import View.View;
+import Model.*;
+import View.*;
 
-import static Service.ServiceAdmin.pause;
 
 public class ServiceMain {
 	private View view = new View();
 	private SQLConnector sqlConnector = SQLConnector.getInstance();
 	private CustomerDAO customerDAO = new CustomerDAO(sqlConnector);
 	private Customer customer;
-	private ServiceAdmin serviceAdmin;
 	private ServiceCustomer serviceCustomer;
 
 
@@ -19,9 +17,8 @@ public class ServiceMain {
 		customer = customerDAO.getCustomerByLoginAndPassword(view.getName(), view.getPassword());
 		if (customer == null) {
 			view.displayInvalidNameOrPassword();
-			pause();
 		} else if (customer.isAdmin()) {
-			serviceAdmin = new ServiceAdmin(customer, customerDAO, sqlConnector, view);
+			ServiceAdmin serviceAdmin = new ServiceAdmin(customer, customerDAO, sqlConnector, view);
 			serviceAdmin.run();
 		} else if (!customer.isAdmin()) {
 			serviceCustomer = new ServiceCustomer(customer, customerDAO, sqlConnector, view);
@@ -30,5 +27,17 @@ public class ServiceMain {
 	}
 
 	public void handleWithOutLogin(){
+		Customer anonymous = new Customer(0, 0, "Anonymous", "anonymous", "anonymous", new Basket());
+		serviceCustomer = new ServiceCustomer(anonymous, customerDAO, sqlConnector, view);
+		serviceCustomer.run();
+	}
+
+	public void handleCreateAccount(){
+		String login = view.getLogin();
+		String password = view.getPassword();
+		String name = view.getName();
+		Customer anonymous = new Customer(0, 0, login, password, name, new Basket());
+		serviceCustomer = new ServiceCustomer(anonymous, customerDAO, sqlConnector, view);
+		serviceCustomer.run();
 	}
 }
