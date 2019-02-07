@@ -33,10 +33,11 @@ public class FeedbackDAO implements InterfaceDAO<Feedback> {
 		String createTableSqlFeedback =
 				"CREATE TABLE Feedback(" +
 						"ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-						"USERNAME TEXT," +
+						"CUSTOMERID INTEGER," +
 						"MESSAGE TEXT," +
 						"DATE TEXT," +
-						"STARS INTEGER" +
+						"STARS INTEGER," +
+						"FOREIGN KEY(customerid) REFERENCES CUSTOMER(ID)" +
 						");";
 		executeUpdateAndCommit(createTableSqlFeedback);
 

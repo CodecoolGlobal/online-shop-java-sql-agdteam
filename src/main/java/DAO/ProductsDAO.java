@@ -67,6 +67,24 @@ public class ProductsDAO implements InterfaceDAO<Product> {
         return productByCurrentResultSet();
     }
 
+
+    public List<Product> getProductByCategory(int categoryID){
+
+        sqlConnector.setResultSetByQuery("SELECT * FROM Products WHERE categoryID ="+categoryID);
+        List<Product> productList = new ArrayList<>();
+
+        try {
+            while (sqlConnector.getResultSet().next()) {
+                productList.add(productByCurrentResultSet());
+            }
+            return productList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
     public void update(int id, Product updatedProduct) {
         String updateProduct =
                 "UPDATE Products SET" +
