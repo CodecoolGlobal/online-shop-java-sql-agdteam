@@ -66,8 +66,7 @@ public class CustomerDAO implements InterfaceDAO<Customer> {
 						resultSet.getInt("ISADMIN"),
 						resultSet.getString("LOGIN"),
 						resultSet.getString("PASSWORD"),
-						resultSet.getString("NAME"),
-						null
+						resultSet.getString("NAME")
 						 //TODO: podpiac pod inne DAO
 				);
 			}catch (SQLException ex){
@@ -103,9 +102,7 @@ public class CustomerDAO implements InterfaceDAO<Customer> {
 					resultSet.getInt("ISADMIN"),
 					resultSet.getString("LOGIN"),
 					resultSet.getString("PASSWORD"),
-					resultSet.getString("NAME"),
-					null
-
+					resultSet.getString("NAME")
 //					resultSet.getInt("ORDERS"),
 //					resultSet.getInt("FEEDBACKLIST") TODO: pobrac z innych DAO
 			);

@@ -13,14 +13,13 @@ public class Customer {
                     int isAdmin,
                     String login,
                     String password,
-                    String name,
-                    Basket basket) {
+                    String name) {
         this.id = id;
         this.isAdmin = isAdmin == 1;
         this.login = login;
         this.password = password;
         this.name = name;
-        this.basket = basket;
+        this.basket = new Basket();
     }
 
     public int getId() { return id; }
