@@ -1,5 +1,7 @@
 package View;
 
+import Model.Product;
+
 import DAO.CategoryDAO;
 import DAO.ProductsDAO;
 import Model.Category;
@@ -127,4 +129,23 @@ public class View {
 		scanner.nextLine();
 	}
 
+	public void printSingleProduct(Product product, int id){
+        String printProduct = String.format(
+                "Id: %d - %s - Price = %.2f, Amount = %d",
+                id,
+                product.getName(),
+                product.getPrice(),
+                product.getAmount());
+        System.out.println(printProduct);
+    }
+
+    public int getIdOfItem(int max){
+        System.out.println("Please select id of item you want to buy");
+        return validatorInput.getIntInput(max);
+    }
+
+    public int getAmountOfItem(int max){
+        System.out.println("Please specify quantity you want to buy");
+        return validatorInput.getIntInput(max);
+    }
 }

@@ -45,4 +45,6 @@ public class ValidatorInput {
     public String getUserPassword(){ //todo validate
         return inputScanner.nextLine();
     }
+
+    public int getIdOfItem(){ return Integer.parseInt(inputScanner.next());}
 }
