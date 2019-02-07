@@ -1,13 +1,10 @@
 package Service;
 
 import DAO.*;
+import View.*;
 import Model.Customer;
-import View.View;
-import View.ViewAdmin;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import static View.View.pause;
 
 public class ServiceAdmin {
 	private ServiceUtilityAdmin serviceUtilityAdmin;
@@ -19,8 +16,6 @@ public class ServiceAdmin {
 	private ProductsDAO productsDAO;
 	private Customer adminUser;
 
-	private static final ArrayList<String> ADMIN_MENU_OPTIONS = new ArrayList<>(Arrays.asList("Test", "Show All Customers", "Logout"));
-
 	public ServiceAdmin(Customer adminUser, CustomerDAO customerDAO, SQLConnector sqlConnector, View view) {
 		this.adminUser = adminUser;
 		this.customerDAO = customerDAO;
@@ -29,22 +24,34 @@ public class ServiceAdmin {
 		this.productsDAO = new ProductsDAO(sqlConnector);
 		this.viewAdmin = new ViewAdmin();
 		this.view = view;
+		this.serviceUtilityAdmin = new ServiceUtilityAdmin(customerDAO, feedbackDAO, ordersDAO, productsDAO);
 	}
 
 
 	public void run() {
 		int choice;
-		END:
 		do {
-			choice = viewAdmin.getUserMenuChoice("Admin menu", ADMIN_MENU_OPTIONS);
+			choice = viewAdmin.getAdminMenuChoice();
 			switch (choice) {
 				case 1:
-					System.out.println(adminUser.getName() + "<--- Admin name");
+					viewAdmin.showAllList(productsDAO.getAll());
 					pause();
-					//TODO: CustomerDAO - get all customers
+					break;
+				case 2:
+					viewAdmin.showAllList(productsDAO.getAll());
+					break;
+				case 3:
+					viewAdmin.showAllFeedback(feedbackDAO.getAll());
+					pause();
+					break;
+				case 4:
+					serviceUtilityAdmin.crudCategories(view);
+					break;
+				case 5:
+					// todo remowe all unavaiable
 					break;
 				case 0:
-					break END;
+					choice = 0;
 			}
 		} while (choice != 0);
 	}
@@ -52,10 +59,6 @@ public class ServiceAdmin {
 
 
 
-	public static void pause() {
-		System.out.println("test <--------------");
-		Scanner scanner = new Scanner(System.in);
-		scanner.nextLine();
-	}
+
 }
 
