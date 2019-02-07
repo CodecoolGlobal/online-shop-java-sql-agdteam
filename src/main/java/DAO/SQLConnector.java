@@ -55,11 +55,11 @@ public class SQLConnector {
 	}
 
 	private void createTableIfDataFileIsEmpty() {
-		setResultSetByQuery("SELECT * FROM Orders");
-		OrdersDAO ordersDAO = new OrdersDAO(this);
+		setResultSetByQuery("SELECT * FROM OrderedItems");
+		OrderedItemsDAO ordersDAO = new OrderedItemsDAO(this);
 		if (resultSet==null) {
 			System.out.println("DataBase not found, creating AGDShop...");
-			ordersDAO.createOrdersTable();
+			ordersDAO.createOrderedItemsTable();
 		}else{
 //			System.out.println(ordersDAO.getAll());
 			}

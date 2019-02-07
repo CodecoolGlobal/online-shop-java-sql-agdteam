@@ -2,7 +2,9 @@ package DAO;
 
 import Model.Order;
 import Model.OrderedItems;
+import Model.Product;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,8 +20,11 @@ public class OrderedItemsDAO {
 
     public void createOrderedItemsTable(){
         String createOITable =
-                "CREATE TABLE OrderedItems(OrderID INTEGER, ProductID INTEGER, " +
-                        "Quantity INTEGER, Price REAL," +
+                "CREATE TABLE OrderedItems(" +
+                        "OrderID INTEGER, " +
+                        "ProductID INTEGER, " +
+                        "Quantity INTEGER, " +
+                        "Price REAL," +
                         "FOREIGN KEY (OrderID) references Orders(OrderID), " +
                         "FOREIGN KEY (ProductID) references Products(ProductID)," +
                         "PRIMARY KEY (OrderID, ProductID) )";
@@ -44,8 +49,31 @@ public class OrderedItemsDAO {
         return null;
     }
 
-    public void add(OrderedItems instance) {
+    public void add(Product product) {
 
+            sqlConnector.setResultSetByQuery("SELECT * FROM Orders " +
+                    "ORDER BY ORDERID DESC LIMIT 1;");
+
+            ResultSet resultSet = sqlConnector.getResultSet();
+
+        try {
+
+            Integer orderID = 1;
+            if (resultSet!=null){
+                orderID = resultSet.getInt("ORDERID");
+            }
+            String addProduct =
+                    "INSERT INTO OrderedItems (OrderID, ProductID, Quantity, Price) " +
+                            "VALUES (" +
+                            "'" + orderID + "'," +
+                            "'" + product.getId() + "'," +
+                            "'" + product.getAmount() + "'," +
+                            "'" + (product.getPrice().multiply(new BigDecimal(product.getAmount())) ) + "'" +
+                            ");";
+            sqlConnector.executeUpdateOnDB(addProduct);
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
     }
 
     public void delete(OrderedItems instance) {

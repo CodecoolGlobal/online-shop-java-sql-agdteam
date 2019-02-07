@@ -2,6 +2,8 @@ package Service;
 
 import DAO.*;
 import Model.Customer;
+import Model.Order;
+import Model.OrderStatus;
 import Model.Product;
 import View.View;
 import View.ViewCustomer;
@@ -19,6 +21,7 @@ public class ServiceCustomer {
 	private OrdersDAO ordersDAO;
 	private ProductsDAO productsDAO;
 	private Customer customer;
+	private OrderedItemsDAO orderedItemsDAO;
 
 	private static final ArrayList<String> CUSTOMER_MENU_OPTIONS =
 			new ArrayList<>(Arrays.asList(
@@ -35,6 +38,7 @@ public class ServiceCustomer {
 		this.feedbackDAO = new FeedbackDAO(sqlConnector);
 		this.ordersDAO = new OrdersDAO(sqlConnector);
 		this.productsDAO = new ProductsDAO(sqlConnector);
+		this.orderedItemsDAO = new OrderedItemsDAO(sqlConnector);
 		this.view = view;
 		this.serviceUtilityCustomer = new ServiceUtilityCustomer(customerDAO, feedbackDAO, ordersDAO, productsDAO, customer);
 	}
@@ -71,7 +75,10 @@ public class ServiceCustomer {
 					productsDAO.update(chosenProduct.getId(), updatedProduct);
                     break;
 				case 4:
-					//Place an order
+					ordersDAO.add(new Order(customer, OrderStatus.SUBMIT));
+					customer.getBasket().getProducts().forEach((prod)->orderedItemsDAO.add(prod));
+					customer.getBasket().getProducts().clear();
+					//todo: jakies info ze zlozono zamowienie itp;
 					break;
 				case 5:
 					//send feedback
