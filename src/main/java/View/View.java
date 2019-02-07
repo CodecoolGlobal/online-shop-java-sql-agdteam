@@ -27,7 +27,7 @@ public class View {
 		return getUserMenuChoice("Admin Crud:", CRUD_PRODUCT_MENU_OPTIONS);
 	}
 
-	private int getUserMenuChoice(String menuTitle, List<String> menuOptions){
+	public int getUserMenuChoice(String menuTitle, List<String> menuOptions){
 		System.out.print("\033[H\033[2J");
 		showMenuFromTitleList(menuTitle, menuOptions);
 		System.out.print("Please select menu option:");
@@ -96,9 +96,10 @@ public class View {
 	    System.out.println("0. Exit");
     }
 
+    public void showAllList(List<?> productList) {
+        productList.forEach(System.out::println);
 
-
-
+    }
 
 
 	public void printString(String string) {

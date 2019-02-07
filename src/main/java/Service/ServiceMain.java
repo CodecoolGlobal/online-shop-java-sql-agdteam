@@ -27,7 +27,7 @@ public class ServiceMain {
 	}
 
 	public void handleWithOutLogin(){
-		Customer anonymous = new Customer(0, 0, "Anonymous", "anonymous", "anonymous", new Basket());
+		Customer anonymous = new Customer(0, 0, "Anonymous", "anonymous", "anonymous");
 		serviceCustomer = new ServiceCustomer(anonymous, customerDAO, sqlConnector, view);
 		serviceCustomer.run();
 	}
@@ -36,7 +36,7 @@ public class ServiceMain {
 		String login = view.getLogin();
 		String password = view.getPassword();
 		String name = view.getName();
-		Customer anonymous = new Customer(0, 0, login, password, name, new Basket());
+		Customer anonymous = new Customer(0, 0, login, password, name);
 		serviceCustomer = new ServiceCustomer(anonymous, customerDAO, sqlConnector, view);
 		serviceCustomer.run();
 	}
