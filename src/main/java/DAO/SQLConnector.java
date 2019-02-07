@@ -55,13 +55,13 @@ public class SQLConnector {
 	}
 
 	private void createTableIfDataFileIsEmpty() {
-		setResultSetByQuery("SELECT * FROM Products");
-		ProductsDAO productsDAO = new ProductsDAO(this);
+		setResultSetByQuery("SELECT * FROM Orders");
+		OrdersDAO ordersDAO = new OrdersDAO(this);
 		if (resultSet==null) {
 			System.out.println("DataBase not found, creating AGDShop...");
-			productsDAO.createProductsTable();
+			ordersDAO.createOrdersTable();
 		}else{
-//			System.out.println(productsDAO.getAll());
+//			System.out.println(ordersDAO.getAll());
 			}
 	}
 
@@ -72,7 +72,7 @@ public class SQLConnector {
 
 	public Customer testAddCustomer(){
 		return new Customer(0,0,"admin", "haslo",
-				"Wojtek", null);
+				"Wojtek");
 	}
 
 	public Category testAddCategory(){

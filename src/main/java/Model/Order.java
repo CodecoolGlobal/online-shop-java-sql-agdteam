@@ -6,31 +6,42 @@ import java.util.Date;
 
 public class Order {
 	private int id;
-	private Basket basket;
-	private Customer user;
+	private Customer customer;
 	private OrderStatus orderStatus;
-	private Date orderCreateAt;
-	private Date orderPayAt;
+	private LocalDate orderCreateDate;
 
 	// Constructor for importing from database where id has been assigned
-	public Order(int id, Basket basket, Customer user, OrderStatus orderStatus, Date orderCreateAt, Date orderPayAt) {
-		this(basket, user, orderStatus);
-		this.orderPayAt = orderPayAt;
+	public Order(int id, Customer user, OrderStatus orderStatus, LocalDate orderCreateDate) {
+		this(user, orderStatus);
 		this.id = id;
 	}
 
 	// Constructor for creation of the new order
-	public Order(Basket basket, Customer user, OrderStatus orderStatus) {
-		this.basket = basket;
-		this.user = user;
+	public Order(Customer user, OrderStatus orderStatus) {
+		this.customer = user;
 		this.orderStatus = orderStatus;
-		orderCreateAt = getLocalDateInDateFormat();
+		orderCreateDate = LocalDate.now();
 	}
 
-	public boolean pay() {
-		orderPayAt = getLocalDateInDateFormat();
-		return true;
+	public int getId() {
+		return id;
 	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public OrderStatus getOrderStatus() {
+		return orderStatus;
+	}
+
+	public LocalDate getOrderCreateDate() {
+		return orderCreateDate;
+	}
+//	public boolean pay() {
+//		orderPayAt = getLocalDateInDateFormat();
+//		return true;
+//	}
 
 	private Date getLocalDateInDateFormat() {
 		return Date.from(LocalDate

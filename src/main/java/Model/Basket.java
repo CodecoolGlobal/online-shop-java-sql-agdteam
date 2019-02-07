@@ -3,14 +3,8 @@ package Model;
 import java.util.*;
 
 public class Basket {
-	private int id;
 	private Iterator<Product> iterator;
 	private List<Product> products;
-
-	public Basket(int id) {
-		this.id = id;
-		products = new ArrayList<>();
-	}
 
 	public Basket() {
 		products = new ArrayList<>();
