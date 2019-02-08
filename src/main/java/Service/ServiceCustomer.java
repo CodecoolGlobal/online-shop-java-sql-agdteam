@@ -12,6 +12,7 @@ import View.ViewAdmin;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ServiceCustomer {
 	private ServiceUtilityCustomer serviceUtilityCustomer;
@@ -50,13 +51,8 @@ public class ServiceCustomer {
 			choice = view.getUserMenuChoice("Customer Menu", CUSTOMER_MENU_OPTIONS);
 			switch (choice){
 				case 1:
-					List<Product> allProd = productsDAO.getAll();
+					List<Product> allProd = productsDAO.getAll().stream().filter(e -> e.getAmount() > 0).collect(Collectors.toList());
 					new ViewAdmin().showAllList(allProd);
-//					for (int i = 0; i < allProd.size(); i++){
-//						if(allProd.get(i).getAmount()>0) {
-//							view.printSingleProduct(allProd.get(i), i);
-//						}
-//                    }
 					break;
 				case 2:
 					List<Product> basketProducts = customer.getBasket().getProducts();
