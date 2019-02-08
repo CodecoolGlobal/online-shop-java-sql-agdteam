@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import static View.View.pause;
 
 public class ServiceCustomer {
 	private ServiceUtilityCustomer serviceUtilityCustomer;
@@ -57,16 +58,16 @@ public class ServiceCustomer {
 				case 2:
 					List<Product> basketProducts = customer.getBasket().getProducts();
 				    if (basketProducts.size() == 0){ view.printString("Your basket is empty");}
-					for (int i =0; i < basketProducts.size();i++){
-					    view.printSingleProduct(basketProducts.get(i), i);
+					for (int i = 0; i < basketProducts.size();i++){
+					    view.printSingleProduct(basketProducts.get(i), i+1);
                     }
 					break;
 				case 3:
                     List<Product> allProducts = productsDAO.getAll();
 				    for (int i = 0; i < allProducts.size(); i++){
-				    view.printSingleProduct(allProducts.get(i) , i);
+				    view.printSingleProduct(allProducts.get(i) , i+1);
                     }
-					int itemId = view.getIdOfItem(allProducts.size());
+					int itemId = view.getIdOfItem(allProducts.size())-1;
 				    Product chosenProduct = allProducts.get(itemId);
 				    int totalAmount = chosenProduct.getAmount();
 				    int itemAmount = view.getAmountOfItem(chosenProduct.getAmount());
@@ -78,6 +79,8 @@ public class ServiceCustomer {
 					ordersDAO.add(new Order(customer, OrderStatus.SUBMIT));
 					customer.getBasket().getProducts().forEach((prod)->orderedItemsDAO.add(prod));
 					customer.getBasket().getProducts().clear();
+					System.out.println("Your products have been ordered ");
+					pause();
 					//todo: jakies info ze zlozono zamowienie itp;
 					break;
 				case 5:
