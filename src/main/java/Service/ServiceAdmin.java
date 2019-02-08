@@ -51,10 +51,10 @@ public class ServiceAdmin {
 				case 4:
 					serviceUtilityAdmin.crudCategories();
 					break;
-				case 5:
-//					productsDAO.delete(productsDAO.getProductById(view.getId(productsDAO.getAll().size())));
-					// todo remowe all unavaiable
-					break;
+//				case 5:
+////					productsDAO.delete(productsDAO.getProductById(view.getId(productsDAO.getAll().size())));
+//					// todo remowe all unavaiable
+//					break;
 				case 0:
 					choice = 0;
 			}

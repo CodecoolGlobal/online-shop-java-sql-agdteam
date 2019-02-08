@@ -49,6 +49,7 @@ public class ServiceUtilityAdmin {
 //					System.out.println(productsDAO.getProductById(1).getName());
 //					System.out.println(productsDAO.getProductById(view.getId(productsDAO.getAll().size())));
 					productsDAO.delete(productsDAO.getProductById(view.getId(productsDAO.getAll().size())));
+					break;
 				}
 				case 3:{
 					addOrUpdateProduct(view.getId(productsDAO.getAll().size()));

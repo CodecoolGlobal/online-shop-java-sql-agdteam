@@ -7,6 +7,7 @@ import Model.OrderStatus;
 import Model.Product;
 import View.View;
 import View.ViewCustomer;
+import View.ViewAdmin;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,11 +51,12 @@ public class ServiceCustomer {
 			switch (choice){
 				case 1:
 					List<Product> allProd = productsDAO.getAll();
-					for (int i = 0; i < allProd.size(); i++){
-						if(allProd.get(i).getAmount()>0) {
-							view.printSingleProduct(allProd.get(i), i);
-						}
-                    }
+					new ViewAdmin().showAllList(allProd);
+//					for (int i = 0; i < allProd.size(); i++){
+//						if(allProd.get(i).getAmount()>0) {
+//							view.printSingleProduct(allProd.get(i), i);
+//						}
+//                    }
 					break;
 				case 2:
 					List<Product> basketProducts = customer.getBasket().getProducts();
