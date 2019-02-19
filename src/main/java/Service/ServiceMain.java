@@ -15,11 +15,13 @@ public class ServiceMain {
 	private ServiceCustomer serviceCustomer;
 
 
-	public void handleLogin(){
+	public boolean handleLogin(){
 		try {
 			customer = customerDAO.getCustomerByLoginAndPassword(view.getName(), view.getPassword());
 		} catch (SQLException e) {
 			view.displayInvalidNameOrPassword();
+			return false;
+
 		}
 		if (customer.isAdmin()) {
 			ServiceAdmin serviceAdmin = new ServiceAdmin(customer, customerDAO, sqlConnector, view);
@@ -28,6 +30,7 @@ public class ServiceMain {
 			serviceCustomer = new ServiceCustomer(customer, customerDAO, sqlConnector, view);
 			serviceCustomer.run();
 		}
+		return true;
 	}
 
 	public void handleWithOutLogin(){
