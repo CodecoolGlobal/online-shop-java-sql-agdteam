@@ -7,40 +7,41 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryDAO implements InterfaceDAO<Category>{
+public class CategoryDAO implements InterfaceDAO<Category> {
     private SQLConnector sqlConnector;
 
-    public CategoryDAO(SQLConnector sqlConnector){
+    public CategoryDAO(SQLConnector sqlConnector) {
         this.sqlConnector = sqlConnector;
     }
 
-    public List<Category> getAll(){
+    public List<Category> getAll() {
 
         sqlConnector.setResultSetByQuery("SELECT * FROM Categories");
         List<Category> categoryList = new ArrayList<>();
 
         try {
-            while (sqlConnector.getResultSet().next()){
+            while (sqlConnector.getResultSet().next()) {
                 categoryList.add(categoryByCurrentResultSet());
             }
             return categoryList;
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return categoryList;
     }
 
-    public Category getCategoryById(int categoryId){
+    public Category getCategoryById(int categoryId) {
         String getByIdQuery = "SELECT * FROM Categories WHERE CATEGORYID = "
                 + categoryId + ";";
         sqlConnector.setResultSetByQuery(getByIdQuery);
         return categoryByCurrentResultSet();
     }
-    public void update(int id, Category updatedCategory){
+
+    public void update(int id, Category updatedCategory) {
 
     }
 
-    public void add(Category category){
+    public void add(Category category) {
         int isAvailable = category.isAvailable() ? 1 : 0;
         String addCategory =
                 "INSERT INTO Categories (CATEGORYNAME, ISAVAILABLE) " +
@@ -51,7 +52,7 @@ public class CategoryDAO implements InterfaceDAO<Category>{
         sqlConnector.executeUpdateOnDB(addCategory);
     }
 
-    public void createCategoriesTable(){
+    public void createCategoriesTable() {
         String createFeedbackTable =
                 "CREATE TABLE Categories(" +
                         "CATEGORYID INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -62,14 +63,14 @@ public class CategoryDAO implements InterfaceDAO<Category>{
         sqlConnector.executeUpdateOnDB(createFeedbackTable);
     }
 
-    public void delete(Category category){
+    public void delete(Category category) {
         String deleteCategory =
                 "DELETE FROM Categories WHERE CATEGORYID = " +
-                category.getId() + ";";
+                        category.getId() + ";";
         sqlConnector.executeUpdateOnDB(deleteCategory);
     }
 
-    private Category categoryByCurrentResultSet(){
+    private Category categoryByCurrentResultSet() {
         ResultSet resultSet = sqlConnector.getResultSet();
 
         try {
@@ -79,8 +80,9 @@ public class CategoryDAO implements InterfaceDAO<Category>{
                     resultSet.getInt("ISAVAILABLE")
             );
             return resultCategory;
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        } return null;
+        }
+        return new Category( -1,"None", 0);
     }
 }
