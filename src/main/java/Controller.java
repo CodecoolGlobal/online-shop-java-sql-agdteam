@@ -1,13 +1,5 @@
 import Service.*;
 import View.View;
-import de.vandermeer.asciitable.AsciiTable;
-import de.vandermeer.skb.interfaces.document.TableRowStyle;
-import io.bretty.console.table.Alignment;
-import io.bretty.console.table.Table;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Controller {
 	private ServiceMain serviceMain;

@@ -1,28 +1,16 @@
 package DAO;
 
-import Model.Category;
-import Model.Customer;
-import Model.Feedback;
-import Model.Product;
-
 import java.io.File;
-import java.math.BigDecimal;
 import java.sql.*;
-import java.time.LocalDate;
-import java.util.List;
+
 
 public class SQLConnector {
 	private  Connection connection;
-
 	private  Statement statement;
-
 	private ResultSet resultSet;
+	private static SQLConnector sqlConnector;
 
-	private CustomerDAO customerDAO;
-
-
-	public SQLConnector() {
-
+	private SQLConnector() {
 		try{
 			System.out.println(new File("").getAbsolutePath());
 
@@ -35,23 +23,18 @@ public class SQLConnector {
 			ex.printStackTrace();
 		}
 		createTableIfDataFileIsEmpty();
+	}
 
+	public static SQLConnector getInstance() {
+		return (sqlConnector == null) ? new SQLConnector() : sqlConnector;
 	}
 
 	public Connection getConnection() {
 		return connection;
 	}
 
-	public void setConnection(Connection connection) {
-		this.connection = connection;
-	}
-
 	public Statement getStatement() {
 		return statement;
-	}
-
-	public void setStatement(Statement statement) {
-		this.statement = statement;
 	}
 
 	private void createTableIfDataFileIsEmpty() {
@@ -63,25 +46,6 @@ public class SQLConnector {
 		}else{
 //			System.out.println(ordersDAO.getAll());
 			}
-	}
-
-	public Feedback testAddFeedback(){
-	    return new Feedback(0,"Nazwa", "Wiadomosc",
-                LocalDate.now(), 5);
-    }
-
-	public Customer testAddCustomer(){
-		return new Customer(0,0,"admin", "haslo",
-				"Wojtek");
-	}
-
-	public Category testAddCategory(){
-		return new Category("elektronika", 1);
-	}
-
-	public Product testAddProduct(){
-		Category testCategory = new Category("warzywa", 1);
-		return new Product("produkcik", BigDecimal.valueOf(20.05), 5, testCategory);
 	}
 
 	public void setResultSetByQuery(String query) {
@@ -96,19 +60,6 @@ public class SQLConnector {
 		return resultSet;
 	}
 
-	public void setResultSet(ResultSet resultSet) {
-		this.resultSet = resultSet;
-	}
-
-	public static SQLConnector getInstance() {
-
-		return new SQLConnector();
-	}
-
-	public void connection() {
-
-	}
-
 	public void executeUpdateOnDB(String update) {
 		try{
 			statement.executeUpdate(update);
@@ -117,8 +68,4 @@ public class SQLConnector {
 			e.printStackTrace();
 		}
 	}
-
-
-
-
 }

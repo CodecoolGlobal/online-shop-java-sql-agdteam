@@ -7,6 +7,10 @@
     <groupId>Agd</groupId>
     <artifactId>AgdShop</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <!--<properties>-->
+    <!--<maven.compiler.source>1.8</maven.compiler.source>-->
+    <!--<maven.compiler.target>1.8</maven.compiler.target>-->
+    <!--</properties>-->
     <build>
         <plugins>
             <plugin>
@@ -34,6 +38,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>maven-unit-test</finalName>
     </build>
 
 
@@ -53,6 +58,18 @@
             <groupId>de.vandermeer</groupId>
             <artifactId>asciitable</artifactId>
             <version>0.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.4.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.4.0</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

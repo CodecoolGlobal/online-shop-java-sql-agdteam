@@ -59,15 +59,15 @@ public class ServiceCustomer {
 					List<Product> basketProducts = customer.getBasket().getProducts();
 				    if (basketProducts.size() == 0){ view.printString("Your basket is empty");}
 					for (int i = 0; i < basketProducts.size();i++){
-					    view.printSingleProduct(basketProducts.get(i), i+1);
+					    view.printSingleProduct(basketProducts.get(i), i + 1);
                     }
 					break;
 				case 3:
                     List<Product> allProducts = productsDAO.getAll();
 				    for (int i = 0; i < allProducts.size(); i++){
-				    view.printSingleProduct(allProducts.get(i) , i+1);
+				    view.printSingleProduct(allProducts.get(i) , i + 1);
                     }
-					int itemId = view.getIdOfItem(allProducts.size())-1;
+					int itemId = view.getIdOfItem(allProducts.size()) - 1;
 				    Product chosenProduct = allProducts.get(itemId);
 				    int totalAmount = chosenProduct.getAmount();
 				    int itemAmount = view.getAmountOfItem(chosenProduct.getAmount());
