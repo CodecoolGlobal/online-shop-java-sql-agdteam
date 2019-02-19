@@ -15,7 +15,7 @@ public class Controller {
 		do {
 			choice = view.getMainMenuChoice();
 			if (choice == 1) {
-				serviceMain.handleLogin();
+				while (!serviceMain.handleLogin());
 			} else if (choice == 2) {
 				serviceMain.handleCreateAccount();
 			} else if (choice == 3) {
