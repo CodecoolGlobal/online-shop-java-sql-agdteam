@@ -4,6 +4,8 @@ import DAO.*;
 import Model.*;
 import View.*;
 
+import java.sql.SQLException;
+
 
 public class ServiceMain {
 	private View view = new View();
@@ -14,10 +16,12 @@ public class ServiceMain {
 
 
 	public void handleLogin(){
-		customer = customerDAO.getCustomerByLoginAndPassword(view.getName(), view.getPassword());
-		if (customer == null) {
+		try {
+			customer = customerDAO.getCustomerByLoginAndPassword(view.getName(), view.getPassword());
+		} catch (SQLException e) {
 			view.displayInvalidNameOrPassword();
-		} else if (customer.isAdmin()) {
+		}
+		if (customer.isAdmin()) {
 			ServiceAdmin serviceAdmin = new ServiceAdmin(customer, customerDAO, sqlConnector, view);
 			serviceAdmin.run();
 		} else if (!customer.isAdmin()) {

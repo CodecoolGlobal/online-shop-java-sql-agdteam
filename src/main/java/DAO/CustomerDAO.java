@@ -51,7 +51,7 @@ public class CustomerDAO implements InterfaceDAO<Customer> {
 		return customerList;
 	}
 
-	public Customer getCustomerByLoginAndPassword(String login, String password){
+	public Customer getCustomerByLoginAndPassword(String login, String password) throws SQLException{
 		String getLoginAndPassword = "SELECT * " +
 				"FROM CUSTOMER " +
 				"WHERE LOGIN='" + login +"' "+
@@ -59,32 +59,15 @@ public class CustomerDAO implements InterfaceDAO<Customer> {
 		sqlConnector.setResultSetByQuery(getLoginAndPassword);
 
 		ResultSet resultSet = sqlConnector.getResultSet();
-		if(resultSet != null){
-			try{
-				return new Customer(
-						resultSet.getInt("ID"),
-						resultSet.getInt("ISADMIN"),
-						resultSet.getString("LOGIN"),
-						resultSet.getString("PASSWORD"),
-						resultSet.getString("NAME")
+		return new Customer(
+			resultSet.getInt("ID"),
+			resultSet.getInt("ISADMIN"),
+			resultSet.getString("LOGIN"),
+			resultSet.getString("PASSWORD"),
+			resultSet.getString("NAME"));
 						 //TODO: podpiac pod inne DAO
-				);
-			}catch (SQLException ex){
-				ex.printStackTrace();
-			}
-		}
-		else{
-			return null;
-		}
-
-		return null;
 	}
 
-	public Customer get(int index) {
-
-//		return new Customer("test", true,"test", "password",  new Basket(), new ArrayList<Basket>(),  new ArrayList<Basket>(), new ArrayList<Feedback>());
-	return null;
-	}
 
 	public void update(int index, Customer updatedCustomer) {
 
