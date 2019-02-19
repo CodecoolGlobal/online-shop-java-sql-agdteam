@@ -27,14 +27,6 @@ public class ProductsDAO implements InterfaceDAO<Product> {
     }
 
     public void add(Product product) {
-//        String addProduct =
-//                "INSERT INTO Products (NAME, PRICE, AMOUNT, CATEGORYID) " +
-//                "VALUES (" +
-//                "'" + product.getName() + "'," +
-//                "'" + product.getPrice() + "'," +
-//                "'" + product.getAmount() + "'," +
-//                "'" + product.getCategory().getId() + "'" +
-//                ");";
         try {
             PreparedStatement myStmt = sqlConnector.getConnection()
                     .prepareStatement("INSERT INTO Products (NAME, PRICE, AMOUNT, CATEGORYID) VALUES (?,?,?,?);");
@@ -48,7 +40,6 @@ public class ProductsDAO implements InterfaceDAO<Product> {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-//        sqlConnector.executeUpdateOnDB(addProduct);
     }
 
     public void createProductsTable() {
@@ -89,7 +80,6 @@ public class ProductsDAO implements InterfaceDAO<Product> {
             myStmt.setInt(1, categoryID);
             myStmt.executeQuery();
 
-//        sqlConnector.setResultSetByQuery("SELECT * FROM Products WHERE categoryID ="+categoryID);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -115,7 +105,6 @@ public class ProductsDAO implements InterfaceDAO<Product> {
     public void update(int id, Product updatedProduct) {
 
 
-
         try{
             PreparedStatement myStmt = sqlConnector.getConnection()
                     .prepareStatement("UPDATE Products SET NAME = ?, PRICE = ?, AMOUNT = ?, CATEGORYID = ?, " +
@@ -135,10 +124,17 @@ public class ProductsDAO implements InterfaceDAO<Product> {
     }
 
     public void delete(Product product) {
-        String deleteProduct =
-                "DELETE FROM Products WHERE PRODUCTID = " +
-                product.getId() + ";";
-        sqlConnector.executeUpdateOnDB(deleteProduct);
+        try{
+            PreparedStatement myStmt = sqlConnector.getConnection()
+            .prepareStatement("DELETE FROM Products WHERE PRODUCTID = ? ;");
+
+            myStmt.setInt(1, product.getId());
+
+            myStmt.executeUpdate();
+            sqlConnector.getConnection().commit();
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
     }
 
     private Product productByCurrentResultSet() {
