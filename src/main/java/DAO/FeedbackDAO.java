@@ -117,6 +117,6 @@ public class FeedbackDAO implements InterfaceDAO<Feedback> {
 		}catch (SQLException  ex){
 			ex.printStackTrace();
 		}
-		return  null;
+		return  new Feedback(-1, "user", "user", LocalDate.now(), 1);
 	}
 }

@@ -7,6 +7,7 @@ import View.View;
 import View.ViewAdmin;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -49,7 +50,11 @@ public class ServiceUtilityAdmin {
 //					System.out.println("test <---------");
 //					System.out.println(productsDAO.getProductById(1).getName());
 //					System.out.println(productsDAO.getProductById(view.getId(productsDAO.getAll().size())));
-					productsDAO.delete(productsDAO.getProductById(view.getId(productsDAO.getAll().size())));
+					try {
+						productsDAO.delete(productsDAO.getProductById(view.getId(productsDAO.getAll().size())));
+					} catch (SQLException e){
+						e.printStackTrace();
+					}
 					break;
 				}
 				case 3:{

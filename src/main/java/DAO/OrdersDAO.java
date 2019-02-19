@@ -33,7 +33,7 @@ public class OrdersDAO implements InterfaceDAO<Order> {
 		} catch (SQLException e){
 			e.printStackTrace();
 		}
-		return null;
+		return ordersList;
 	}
 
 	public void createOrdersTable(){
@@ -78,7 +78,7 @@ public class OrdersDAO implements InterfaceDAO<Order> {
 		sqlConnector.executeUpdateOnDB(deleteOrder);
 	}
 
-	private Order orderByCurrentResultSet(){
+	private Order orderByCurrentResultSet() throws SQLException{
 		ResultSet resultSet = sqlConnector.getResultSet();
 
 		try{
@@ -103,7 +103,7 @@ public class OrdersDAO implements InterfaceDAO<Order> {
 			return resultOrder;
 		} catch (SQLException e){
 			e.printStackTrace();
-		} return null;
+		} throw new SQLException("DB Connection issue - Orders table");
 	}
 
 }
