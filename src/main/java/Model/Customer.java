@@ -8,6 +8,17 @@ public class Customer {
     private String name;
     private Basket basket;
 
+    public Customer(int isAdmin,
+                    String login,
+                    String password,
+                    String name) {
+        this.isAdmin = isAdmin == 1;
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.basket = new Basket();
+    }
+
 
     public Customer(int id,
                     int isAdmin,

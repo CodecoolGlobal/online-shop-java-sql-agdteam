@@ -34,8 +34,16 @@ public class CustomerDAO implements InterfaceDAO<Customer> {
 		executeUpdateAndCommit(createTableSqlCustomer);
 	}
 
-	public void add(Customer product) {
-
+	public void add(Customer newCustomer) {
+		String addCustomerQuery =
+				"INSERT INTO Customer (ISADMIN, LOGIN, PASSWORD, NAME) "
+						+ "VALUES ("
+						+ newCustomer.isAdmin() + ", "
+						+ "'" + newCustomer.getLogin() + "', "
+						+ "'" + newCustomer.getPassword() + "', "
+						+ "'" + newCustomer.getName() + "'"
+						+ ");";
+		sqlConnector.executeUpdateOnDB(addCustomerQuery);
 	}
 
 	public List<Customer> getAll(){

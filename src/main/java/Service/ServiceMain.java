@@ -43,8 +43,9 @@ public class ServiceMain {
 		String login = view.getLogin();
 		String password = view.getPassword();
 		String name = view.getName();
-		Customer anonymous = new Customer(0, 0, login, password, name);
-		serviceCustomer = new ServiceCustomer(anonymous, customerDAO, sqlConnector, view);
+		Customer newCustomer = new Customer(0, login, password, name);
+		serviceCustomer = new ServiceCustomer(newCustomer, customerDAO, sqlConnector, view);
+		customerDAO.add(newCustomer);
 		serviceCustomer.run();
 	}
 }
