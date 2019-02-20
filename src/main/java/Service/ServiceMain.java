@@ -36,11 +36,9 @@ public class ServiceMain {
 	public void handleWithOutLogin(){
 //		Customer anonymous = new Customer(0, 0, "Anonymous", "anonymous", "anonymous");
 //		serviceCustomer = new ServiceCustomer(anonymous, customerDAO, sqlConnector, view);
-		try {
-			customer = customerDAO.getCustomerByLoginAndPassword("anonymous", "anonymous");
-		} catch (SQLException e) {
-			view.displayInvalidNameOrPassword();
-		}
+		customer = new Customer(
+				0, "anonymous", "anonymous", "anonymous", true);
+
 		serviceCustomer = new ServiceCustomer(customer,customerDAO, sqlConnector, view);
 		serviceCustomer.run();
 	}

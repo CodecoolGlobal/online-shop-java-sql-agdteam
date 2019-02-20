@@ -17,7 +17,6 @@ import static View.View.pause;
 
 public class ServiceCustomer {
 	private ServiceUtilityCustomer serviceUtilityCustomer;
-	private ViewCustomer viewCustomer;
 	private View view;
 	private CustomerDAO customerDAO;
 	private FeedbackDAO feedbackDAO;
@@ -25,6 +24,7 @@ public class ServiceCustomer {
 	private ProductsDAO productsDAO;
 	private Customer customer;
 	private OrderedItemsDAO orderedItemsDAO;
+	private ViewCustomer viewCustomer;
 
 	private static final ArrayList<String> CUSTOMER_MENU_OPTIONS =
 			new ArrayList<>(Arrays.asList(
@@ -43,7 +43,8 @@ public class ServiceCustomer {
 		this.productsDAO = new ProductsDAO(sqlConnector);
 		this.orderedItemsDAO = new OrderedItemsDAO(sqlConnector);
 		this.view = view;
-		this.serviceUtilityCustomer = new ServiceUtilityCustomer(customerDAO, feedbackDAO, ordersDAO, productsDAO, orderedItemsDAO, customer, view);
+		this.viewCustomer = new ViewCustomer();
+		this.serviceUtilityCustomer = new ServiceUtilityCustomer(customerDAO, feedbackDAO, ordersDAO, productsDAO, orderedItemsDAO, customer, viewCustomer);
 	}
 
 	public void run() {
