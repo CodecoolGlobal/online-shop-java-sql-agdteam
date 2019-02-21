@@ -1,11 +1,7 @@
 package Service;
 
 import DAO.*;
-import Model.Customer;
-import Model.Order;
-import Model.OrderStatus;
-import Model.Product;
-import View.View;
+import Model.*;
 import View.ViewCustomer;
 
 import java.util.List;
@@ -73,6 +69,16 @@ public class ServiceUtilityCustomer {
             System.out.println("Your products have been ordered ");
             pause();
         }
+    }
+
+    public void sendFeedback(){
+        String username = customer.getName();
+        String message = view.inputFeedbackMessage();
+        int stars = view.getStarsRating();
+        Feedback userFeedback = new Feedback(username, message, stars);
+        feedbackDAO.add(userFeedback);
+        view.showThanksForFeedbackMessage();
+        pause();
     }
 
     public void crudBasket() {
