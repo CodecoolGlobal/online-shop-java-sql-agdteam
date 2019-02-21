@@ -10,7 +10,7 @@ public class Controller {
 		this.view = new View();
 	}
 
-	public void mainLoop() {
+	public void mainRun() {
 		int choice;
 		do {
 			choice = view.getMainMenuChoice();

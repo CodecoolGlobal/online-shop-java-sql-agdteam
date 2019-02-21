@@ -32,46 +32,46 @@ public class ProductsDAO implements InterfaceDAO<Product> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return productList;
     }
 
     public void add(Product product) {
         String addProduct =
                 "INSERT INTO Products (NAME, PRICE, AMOUNT, CATEGORYID) " +
-                "VALUES (" +
-                "'" + product.getName() + "'," +
-                "'" + product.getPrice() + "'," +
-                "'" + product.getAmount() + "'," +
-                "'" + product.getCategory().getId() + "'" +
-                ");";
+                        "VALUES (" +
+                        "'" + product.getName() + "'," +
+                        "'" + product.getPrice() + "'," +
+                        "'" + product.getAmount() + "'," +
+                        "'" + product.getCategory().getId() + "'" +
+                        ");";
         sqlConnector.executeUpdateOnDB(addProduct);
     }
 
-    public void createProductsTable(){
+    public void createProductsTable() {
         String createProductsTable =
                 "CREATE TABLE Products(" +
-                "PRODUCTID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "NAME VARCHAR," +
-                "PRICE REAL," +
-                "AMOUNT INTEGER," +
-                "CATEGORYID INTEGER," +
-                "FOREIGN KEY(CATEGORYID) REFERENCES Categories(CATEGORYID)" +
-                ");";
+                        "PRODUCTID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "NAME VARCHAR," +
+                        "PRICE REAL," +
+                        "AMOUNT INTEGER," +
+                        "CATEGORYID INTEGER," +
+                        "FOREIGN KEY(CATEGORYID) REFERENCES Categories(CATEGORYID)" +
+                        ");";
         sqlConnector.executeUpdateOnDB(createProductsTable);
     }
 
-    public Product getProductById(int productId) {
-        String getByIDQuery = "SELECT * FROM Products LEFT JOIN CATEGORIES" +
-                " ON CATEGORIES.CATEGORYID = PRODUCTS.CATEGORYID WHERE PRODUCTID = " +
-                productId + ";";
-        sqlConnector.setResultSetByQuery(getByIDQuery);
-        return productByCurrentResultSet();
+    public Product getProductById(int productId) throws SQLException{
+            String getByIDQuery = "SELECT * FROM Products LEFT JOIN CATEGORIES" +
+                    " ON CATEGORIES.CATEGORYID = PRODUCTS.CATEGORYID WHERE PRODUCTID = " +
+                    productId + ";";
+            sqlConnector.setResultSetByQuery(getByIDQuery);
+            return productByCurrentResultSet();
     }
 
 
-    public List<Product> getProductByCategory(int categoryID){
+    public List<Product> getProductByCategory(int categoryID) {
 
-        sqlConnector.setResultSetByQuery("SELECT * FROM Products WHERE categoryID ="+categoryID);
+        sqlConnector.setResultSetByQuery("SELECT * FROM Products WHERE categoryID =" + categoryID);
         List<Product> productList = new ArrayList<>();
 
         try {
@@ -82,7 +82,7 @@ public class ProductsDAO implements InterfaceDAO<Product> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return productList;
     }
 
 
@@ -100,18 +100,17 @@ public class ProductsDAO implements InterfaceDAO<Product> {
     public void delete(Product product) {
         String deleteProduct =
                 "DELETE FROM Products WHERE PRODUCTID = " +
-                product.getId() + ";";
+                        product.getId() + ";";
         sqlConnector.executeUpdateOnDB(deleteProduct);
     }
 
-    private Product productByCurrentResultSet() {
+    private Product productByCurrentResultSet() throws SQLException {
         ResultSet resultSet = sqlConnector.getResultSet();
 
-        try {
             Category category =
                     new Category(resultSet.getInt("CATEGORYID"),
-                                 resultSet.getString("CATEGORYNAME"),
-                                resultSet.getInt("ISAVAILABLE"));
+                            resultSet.getString("CATEGORYNAME"),
+                            resultSet.getInt("ISAVAILABLE"));
 
             Product resultProduct = new Product(
                     resultSet.getInt("PRODUCTID"),
@@ -121,9 +120,5 @@ public class ProductsDAO implements InterfaceDAO<Product> {
                     category);
 
             return resultProduct;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

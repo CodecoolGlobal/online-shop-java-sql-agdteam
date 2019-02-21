@@ -17,7 +17,6 @@ import static View.View.pause;
 
 public class ServiceCustomer {
 	private ServiceUtilityCustomer serviceUtilityCustomer;
-	private ViewCustomer viewCustomer;
 	private View view;
 	private CustomerDAO customerDAO;
 	private FeedbackDAO feedbackDAO;
@@ -25,6 +24,7 @@ public class ServiceCustomer {
 	private ProductsDAO productsDAO;
 	private Customer customer;
 	private OrderedItemsDAO orderedItemsDAO;
+	private ViewCustomer viewCustomer;
 
 	private static final ArrayList<String> CUSTOMER_MENU_OPTIONS =
 			new ArrayList<>(Arrays.asList(
@@ -43,48 +43,31 @@ public class ServiceCustomer {
 		this.productsDAO = new ProductsDAO(sqlConnector);
 		this.orderedItemsDAO = new OrderedItemsDAO(sqlConnector);
 		this.view = view;
-		this.serviceUtilityCustomer = new ServiceUtilityCustomer(customerDAO, feedbackDAO, ordersDAO, productsDAO, customer);
+		this.viewCustomer = new ViewCustomer();
+		this.serviceUtilityCustomer = new ServiceUtilityCustomer(customerDAO, feedbackDAO, ordersDAO, productsDAO, orderedItemsDAO, customer, viewCustomer);
 	}
 
 	public void run() {
 		int choice;
 		do {
 			choice = view.getUserMenuChoice("Customer Menu", CUSTOMER_MENU_OPTIONS);
-			switch (choice){
+			switch (choice) {
 				case 1:
 					List<Product> allProd = productsDAO.getAll().stream().filter(e -> e.getAmount() > 0).collect(Collectors.toList());
 					new ViewAdmin().showAllList(allProd);
 					break;
 				case 2:
-					List<Product> basketProducts = customer.getBasket().getProducts();
-				    if (basketProducts.size() == 0){ view.printString("Your basket is empty");}
-					for (int i = 0; i < basketProducts.size();i++){
-					    view.printSingleProduct(basketProducts.get(i), i + 1);
-                    }
+					serviceUtilityCustomer.showBasket();
 					break;
 				case 3:
-                    List<Product> allProducts = productsDAO.getAll();
-				    for (int i = 0; i < allProducts.size(); i++){
-				    view.printSingleProduct(allProducts.get(i) , i + 1);
-                    }
-					int itemId = view.getIdOfItem(allProducts.size()) - 1;
-				    Product chosenProduct = allProducts.get(itemId);
-				    int totalAmount = chosenProduct.getAmount();
-				    int itemAmount = view.getAmountOfItem(chosenProduct.getAmount());
-				    customer.addToBasket(chosenProduct, itemAmount);
-                    Product updatedProduct = new Product(chosenProduct.getName(), chosenProduct.getPrice(), totalAmount - itemAmount, chosenProduct.getCategory());
-					productsDAO.update(chosenProduct.getId(), updatedProduct);
-                    break;
+					serviceUtilityCustomer.addProductToBasket();
+					break;
 				case 4:
-					ordersDAO.add(new Order(customer, OrderStatus.SUBMIT));
-					customer.getBasket().getProducts().forEach((prod)->orderedItemsDAO.add(prod));
-					customer.getBasket().getProducts().clear();
-					System.out.println("Your products have been ordered ");
-					pause();
+					serviceUtilityCustomer.placeOrder();
 					//todo: jakies info ze zlozono zamowienie itp;
 					break;
 				case 5:
-					//send feedback
+					serviceUtilityCustomer.sendFeedback();
 					break;
 				case 0:
 					break;
@@ -92,3 +75,5 @@ public class ServiceCustomer {
 		} while (choice != 0);
 	}
 }
+
+

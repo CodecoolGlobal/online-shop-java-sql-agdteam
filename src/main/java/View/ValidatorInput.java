@@ -3,6 +3,7 @@ package View;
 import DAO.ProductsDAO;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class ValidatorInput {
@@ -37,7 +38,7 @@ public class ValidatorInput {
                 } else {
                     System.out.println("Incorrect choice");
                 }
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | SQLException e) {
                 System.out.println("This is not a number, please try again");
             }
         }
@@ -64,4 +65,9 @@ public class ValidatorInput {
     }
 
     public int getIdOfItem(){ return Integer.parseInt(inputScanner.nextLine());}
+//    public int getIdOfItem(){ return Integer.parseInt(inputScanner.next());}
+
+    public String inputFeedback(){
+        return inputScanner.nextLine();
+    }
 }

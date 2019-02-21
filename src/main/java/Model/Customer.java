@@ -7,7 +7,19 @@ public class Customer {
     private String password;
     private String name;
     private Basket basket;
+    private boolean isAnonymous;
 
+    public Customer(int isAdmin,
+                    String login,
+                    String password,
+                    String name) {
+        this.isAdmin = isAdmin == 1;
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.basket = new Basket();
+        this.isAnonymous = false;
+    }
 
     public Customer(int id,
                     int isAdmin,
@@ -20,6 +32,23 @@ public class Customer {
         this.password = password;
         this.name = name;
         this.basket = new Basket();
+        this.isAnonymous = false;
+    }
+
+    public Customer(int isAdmin,
+                    String login,
+                    String password,
+                    String name, boolean isAnonymous) {
+        this.isAdmin = isAdmin == 1;
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.basket = new Basket();
+        this.isAnonymous = isAnonymous;
+    }
+
+    public boolean isAnonymous() {
+        return isAnonymous;
     }
 
     public int getId() { return id; }

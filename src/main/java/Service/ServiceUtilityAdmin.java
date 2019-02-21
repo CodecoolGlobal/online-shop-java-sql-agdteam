@@ -7,6 +7,7 @@ import View.View;
 import View.ViewAdmin;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -38,6 +39,7 @@ public class ServiceUtilityAdmin {
 	public void crudCategories(){
 		int choice;
 		do {
+			viewAdmin.showAllList(productsDAO.getAll());
 			choice = view.getAdminCrudMenuChoice();
 			switch (choice) {
 				case 1: {
@@ -46,7 +48,16 @@ public class ServiceUtilityAdmin {
 					break;
 				}
 				case 2:	{
-					productsDAO.delete(productsDAO.getProductById(view.getId(productsDAO.getAll().size())));
+//					System.out.println("test <---------");
+//					System.out.println(productsDAO.getProductById(1).getName());
+//					System.out.println(productsDAO.getProductById(view.getId(productsDAO.getAll().size())));
+						int id  = viewAdmin.getIdOfItem();
+						try {
+							Product productToDelete = productsDAO.getProductById(id);
+							productsDAO.delete(productToDelete);
+						} catch (SQLException e){
+							viewAdmin.itemNotOnListMessage();
+						}
 					break;
 				}
 				case 3:{
@@ -70,26 +81,9 @@ public class ServiceUtilityAdmin {
 			Category category = categoryDAO.getAll().stream().filter(e -> e.getName().equals(categoryChoice)).findFirst().get();
 			productsDAO.add(new Product(name, price, amount, category));
 		} else {
-
 //			productsDAO.update(id, new Product(id, name, price, amount, category));
 		}
 	}
-
-//	private void addOrUpdateProduct(Product product) {
-//		String name = view.getProductName();
-//		BigDecimal price = new BigDecimal(String.valueOf(view.getPrice()));
-//		int amount = view.getAmount();
-//		categoryDAO.getAll().stream().map(Category::getName).forEach(System.out::println);
-//		String categoryChoice = view.getCategoryName();
-//		Category category = categoryDAO.getAll().stream().filter(e -> e.getName().equals(categoryChoice)).findFirst().get();
-//		if ((id == -1)) {
-//			productsDAO.add(new Product(name, price, amount, category));
-//		} else {
-//			productsDAO.update(id, new Product(id, name, price, amount, category));
-//		}
-//	}
-
-
 
 	private void addOrUpdateProduct(){
 		addOrUpdateProduct(-1);

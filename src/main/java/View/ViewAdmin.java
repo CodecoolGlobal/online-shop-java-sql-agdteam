@@ -37,7 +37,7 @@ public class ViewAdmin extends View {
 
 	public void showAllFeedback(List<Feedback> feedbackList) {
 		for (Feedback feedback : feedbackList) {
-			System.out.println(feedback.getId() + " : " + feedback.getStars() + " : " + feedback.getMessage() + " : " + feedback.getUsername());
+			System.out.println("Date: " +feedback.getDate() + " - Rating: " + feedback.getStars() + " - Message: " + feedback.getMessage() + " - Customer: " + feedback.getUsername());
 		}
 	}
 
@@ -51,7 +51,17 @@ public class ViewAdmin extends View {
 
 	}
 
+	public int getIdOfItem(){
+		System.out.println("Please select item ID");
+		return validatorInput.getIdOfItem();
+	}
+
 	public void viewOtherMenu(){
 
+	}
+
+	public void itemNotOnListMessage(){
+		System.out.println("Selected item id is not available");
+		pause();
 	}
 }

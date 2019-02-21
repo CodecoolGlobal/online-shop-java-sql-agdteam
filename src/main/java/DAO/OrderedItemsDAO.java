@@ -96,6 +96,6 @@ public class OrderedItemsDAO {
             );
         } catch (SQLException e){
             e.printStackTrace();
-        } return null;
+        } return new OrderedItems(-1, -1, -1, BigDecimal.ONE);
     }
 }
