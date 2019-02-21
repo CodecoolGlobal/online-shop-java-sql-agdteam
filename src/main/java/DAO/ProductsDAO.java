@@ -107,7 +107,6 @@ public class ProductsDAO implements InterfaceDAO<Product> {
     private Product productByCurrentResultSet() throws SQLException {
         ResultSet resultSet = sqlConnector.getResultSet();
 
-        try {
             Category category =
                     new Category(resultSet.getInt("CATEGORYID"),
                             resultSet.getString("CATEGORYNAME"),
@@ -121,9 +120,5 @@ public class ProductsDAO implements InterfaceDAO<Product> {
                     category);
 
             return resultProduct;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        throw new SQLException("DB connection issue - Category table");
     }
 }

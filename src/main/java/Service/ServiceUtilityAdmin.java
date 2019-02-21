@@ -39,6 +39,7 @@ public class ServiceUtilityAdmin {
 	public void crudCategories(){
 		int choice;
 		do {
+			viewAdmin.showAllList(productsDAO.getAll());
 			choice = view.getAdminCrudMenuChoice();
 			switch (choice) {
 				case 1: {
@@ -50,11 +51,13 @@ public class ServiceUtilityAdmin {
 //					System.out.println("test <---------");
 //					System.out.println(productsDAO.getProductById(1).getName());
 //					System.out.println(productsDAO.getProductById(view.getId(productsDAO.getAll().size())));
-					try {
-						productsDAO.delete(productsDAO.getProductById(view.getId(productsDAO.getAll().size())));
-					} catch (SQLException e){
-						e.printStackTrace();
-					}
+						int id  = viewAdmin.getIdOfItem();
+						try {
+							Product productToDelete = productsDAO.getProductById(id);
+							productsDAO.delete(productToDelete);
+						} catch (SQLException e){
+							viewAdmin.itemNotOnListMessage();
+						}
 					break;
 				}
 				case 3:{

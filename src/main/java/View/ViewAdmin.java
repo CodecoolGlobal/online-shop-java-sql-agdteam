@@ -51,7 +51,17 @@ public class ViewAdmin extends View {
 
 	}
 
+	public int getIdOfItem(){
+		System.out.println("Please select item ID");
+		return validatorInput.getIdOfItem();
+	}
+
 	public void viewOtherMenu(){
 
+	}
+
+	public void itemNotOnListMessage(){
+		System.out.println("Selected item id is not available");
+		pause();
 	}
 }
