@@ -47,4 +47,8 @@ public class ValidatorInput {
     }
 
     public int getIdOfItem(){ return Integer.parseInt(inputScanner.next());}
+
+    public String inputFeedback(){
+        return inputScanner.nextLine();
+    }
 }

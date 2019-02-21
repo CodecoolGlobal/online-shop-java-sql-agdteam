@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 public class View {
-    private ValidatorInput validatorInput;
+    protected ValidatorInput validatorInput;
 	private static final ArrayList<String> MAIN_MENU_OPTIONS = new ArrayList<>(Arrays.asList("Login", "Create account", "Shop without logging"));
 	private static final ArrayList<String> ADMIN_MENU_OPTIONS = new ArrayList<>(Arrays.asList("Show all Product", "Show Product By Category", "Show all feedback", "Crud product"));
 	private static final ArrayList<String> USER_MENU_OPTIONS = new ArrayList<>(Arrays.asList("Show all Product", "Show Basket", "Add Product to basket", "Add feedback", "Remove Product from basket", "Buy"));

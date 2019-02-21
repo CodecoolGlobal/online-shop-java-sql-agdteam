@@ -67,7 +67,7 @@ public class ServiceCustomer {
 					//todo: jakies info ze zlozono zamowienie itp;
 					break;
 				case 5:
-					//send feedback
+					serviceUtilityCustomer.sendFeedback();
 					break;
 				case 0:
 					break;
