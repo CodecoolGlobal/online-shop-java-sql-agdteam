@@ -46,6 +46,11 @@ public class View {
 		return validatorInput.getIntInput(max);
 	}
 
+	public Integer getId(ProductsDAO productsDAO){
+		System.out.print("Id: ");
+		return validatorInput.getInt(productsDAO);
+	}
+
 
 	public String getString(String string){
 		System.out.println(string);

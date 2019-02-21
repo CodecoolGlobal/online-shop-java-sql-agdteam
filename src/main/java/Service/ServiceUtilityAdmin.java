@@ -46,14 +46,13 @@ public class ServiceUtilityAdmin {
 					break;
 				}
 				case 2:	{
-//					System.out.println("test <---------");
-//					System.out.println(productsDAO.getProductById(1).getName());
-//					System.out.println(productsDAO.getProductById(view.getId(productsDAO.getAll().size())));
 					productsDAO.delete(productsDAO.getProductById(view.getId(productsDAO.getAll().size())));
 					break;
 				}
 				case 3:{
-					addOrUpdateProduct(view.getId(productsDAO.getAll().size()));
+					viewAdmin.showAllList(productsDAO.getAll());
+//					int index = view.getId(productsDAO);
+					addOrUpdateProduct(view.getId(productsDAO));
 				}
 			}
 
@@ -62,18 +61,35 @@ public class ServiceUtilityAdmin {
 	}
 
 	private void addOrUpdateProduct(int id) {
-		String name = view.getProductName();
-		BigDecimal price = new BigDecimal(String.valueOf(view.getPrice()));
-		int amount = view.getAmount();
-		categoryDAO.getAll().stream().map(Category::getName).forEach(System.out::println);
-		String categoryChoice = view.getCategoryName();
-		Category category = categoryDAO.getAll().stream().filter(e -> e.getName().equals(categoryChoice)).findFirst().get();
 		if ((id == -1)) {
+			String name = view.getProductName();
+			BigDecimal price = new BigDecimal(String.valueOf(view.getPrice()));
+			int amount = view.getAmount();
+			categoryDAO.getAll().stream().map(Category::getName).forEach(System.out::println);
+			String categoryChoice = view.getCategoryName();
+			Category category = categoryDAO.getAll().stream().filter(e -> e.getName().equals(categoryChoice)).findFirst().get();
 			productsDAO.add(new Product(name, price, amount, category));
 		} else {
-			productsDAO.update(id, new Product(id, name, price, amount, category));
+
+//			productsDAO.update(id, new Product(id, name, price, amount, category));
 		}
 	}
+
+//	private void addOrUpdateProduct(Product product) {
+//		String name = view.getProductName();
+//		BigDecimal price = new BigDecimal(String.valueOf(view.getPrice()));
+//		int amount = view.getAmount();
+//		categoryDAO.getAll().stream().map(Category::getName).forEach(System.out::println);
+//		String categoryChoice = view.getCategoryName();
+//		Category category = categoryDAO.getAll().stream().filter(e -> e.getName().equals(categoryChoice)).findFirst().get();
+//		if ((id == -1)) {
+//			productsDAO.add(new Product(name, price, amount, category));
+//		} else {
+//			productsDAO.update(id, new Product(id, name, price, amount, category));
+//		}
+//	}
+
+
 
 	private void addOrUpdateProduct(){
 		addOrUpdateProduct(-1);

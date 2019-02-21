@@ -1,5 +1,7 @@
 package View;
 
+import DAO.ProductsDAO;
+
 import java.math.BigDecimal;
 import java.util.Scanner;
 
@@ -14,7 +16,7 @@ public class ValidatorInput {
         boolean inputCorrect = false;
         while (!inputCorrect) {
             try {
-                int input = Integer.parseInt(inputScanner.next());
+                int input = Integer.parseInt(inputScanner.nextLine());
                 if (input >= 0 && input <= maximum) {
                     return input;
                 } else {
@@ -26,25 +28,40 @@ public class ValidatorInput {
         } return 0;
     }
 
+    public int getInt(ProductsDAO productsDAO){
+        while (true){
+            try {
+                int input = Integer.parseInt(inputScanner.nextLine());
+                if (productsDAO.getProductById(input) != null) {
+                    return input;
+                } else {
+                    System.out.println("Incorrect choice");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("This is not a number, please try again");
+            }
+        }
+    }
+
     public String getUserName(){ //todo validate
-        return inputScanner.next();
+        return inputScanner.nextLine();
     }
 
     public String getUserLogin(){
-        return inputScanner.next();
+        return inputScanner.nextLine();
     }
 
     public BigDecimal getBigDecimal(){
-        return new BigDecimal(inputScanner.next());
+        return new BigDecimal(inputScanner.nextLine());
     }
 
     public String getWord(){
-        return inputScanner.next();
+        return inputScanner.nextLine();
     }
 
     public String getUserPassword(){ //todo validate
         return inputScanner.nextLine();
     }
 
-    public int getIdOfItem(){ return Integer.parseInt(inputScanner.next());}
+    public int getIdOfItem(){ return Integer.parseInt(inputScanner.nextLine());}
 }
