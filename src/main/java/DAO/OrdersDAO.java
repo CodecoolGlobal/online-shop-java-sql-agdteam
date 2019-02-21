@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class OrdersDAO implements InterfaceDAO<Order> {
 	private SQLConnector sqlConnector;
@@ -105,5 +106,29 @@ public class OrdersDAO implements InterfaceDAO<Order> {
 			e.printStackTrace();
 		} throw new SQLException("DB Connection issue - Orders table");
 	}
+
+	public List<Integer> getOrdersByUserID(Customer customer){
+		String selectUserOrders = "Select * FROM Orders WHERE CUSTOMERID = " + customer.getId();
+		sqlConnector.setResultSetByQuery(selectUserOrders);
+		sqlConnector.getResultSet();
+		List<Integer> ordersID = new ArrayList<>();
+		try{
+			while (sqlConnector.getResultSet().next()){
+				ordersID.add(sqlConnector.getResultSet().getInt(1));
+			}
+
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return ordersID;
+
+	}
+
+//	public void getProductNameByProductId(int productId){
+//		for(Integer order : ordersList){
+//			String orderedItem = "SELECT * FROM OrderedItems Where OrderID = " + order;
+//
+//		}
+//	}
 
 }

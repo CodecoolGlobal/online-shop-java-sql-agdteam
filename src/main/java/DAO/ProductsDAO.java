@@ -22,6 +22,10 @@ public class ProductsDAO implements InterfaceDAO<Product> {
         sqlConnector.setResultSetByQuery("SELECT * FROM Products " +
                 "INNER JOIN Categories " +
                 "ON Products.CATEGORYID = Categories.CATEGORYID");
+        return getProducts();
+    }
+
+    private List<Product> getProducts() {
         List<Product> productList = new ArrayList<>();
 
         try {
@@ -61,6 +65,7 @@ public class ProductsDAO implements InterfaceDAO<Product> {
     }
 
     public Product getProductById(int productId) throws SQLException{
+
             String getByIDQuery = "SELECT * FROM Products LEFT JOIN CATEGORIES" +
                     " ON CATEGORIES.CATEGORYID = PRODUCTS.CATEGORYID WHERE PRODUCTID = " +
                     productId + ";";
@@ -68,21 +73,18 @@ public class ProductsDAO implements InterfaceDAO<Product> {
             return productByCurrentResultSet();
     }
 
+    public String getProductNameById(int productId) throws SQLException{
+        String getByIDQuery = "SELECT name FROM Products WHERE PRODUCTID = " +
+                productId + ";";
+        sqlConnector.setResultSetByQuery(getByIDQuery);
+        return sqlConnector.getResultSet().getString(1);
+    }
+
 
     public List<Product> getProductByCategory(int categoryID) {
 
         sqlConnector.setResultSetByQuery("SELECT * FROM Products WHERE categoryID =" + categoryID);
-        List<Product> productList = new ArrayList<>();
-
-        try {
-            while (sqlConnector.getResultSet().next()) {
-                productList.add(productByCurrentResultSet());
-            }
-            return productList;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return productList;
+        return getProducts();
     }
 
 
@@ -126,4 +128,6 @@ public class ProductsDAO implements InterfaceDAO<Product> {
         }
         throw new SQLException("DB connection issue - Category table");
     }
+
+
 }

@@ -84,6 +84,61 @@ public class OrderedItemsDAO {
 
     }
 
+    public List<Integer> getProductsIDByOrderID(List<Integer> ordersIDs){
+
+        List<Integer> productsIDInOrders = new ArrayList<>();
+        for(Integer orderID : ordersIDs){
+
+            String selectUserOrders = "SELECT ProductID FROM ORDEREDITEMS WHERE ORDERID = " + orderID;
+            sqlConnector.setResultSetByQuery(selectUserOrders);
+            sqlConnector.getResultSet();
+            try{
+                while (sqlConnector.getResultSet().next()){
+                    productsIDInOrders.add(sqlConnector.getResultSet().getInt(1));
+                }
+
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        return productsIDInOrders;
+
+
+    }
+
+    public List<OrderedItems> getOrderedItemsListByOrderID(List<Integer> ordersIDs){
+        List<OrderedItems> orderedItemsList = new ArrayList<>();
+
+        for(Integer orderID : ordersIDs){
+            String selectUserOrders = "SELECT * FROM ORDEREDITEMS WHERE ORDERID = " + orderID;
+            sqlConnector.setResultSetByQuery(selectUserOrders);
+            try {
+                while (sqlConnector.getResultSet().next()) {
+                    orderedItemsList.add(orderByCurrentResultSet());
+                }
+
+            }catch (SQLException ex){
+                ex.printStackTrace();
+            }
+        }return orderedItemsList;
+    }
+
+    public List<OrderedItems> getOrderedItemsByOrderID(Integer ordersID){
+        List<OrderedItems> orderedItemsList = new ArrayList<>();
+
+            String selectUserOrders = "SELECT * FROM ORDEREDITEMS WHERE ORDERID = " + ordersID;
+            sqlConnector.setResultSetByQuery(selectUserOrders);
+            try {
+                while (sqlConnector.getResultSet().next()) {
+                    orderedItemsList.add(orderByCurrentResultSet());
+                }
+
+            }catch (SQLException ex){
+                ex.printStackTrace();
+            }
+        return orderedItemsList;
+    }
+
     private OrderedItems orderByCurrentResultSet(){
         ResultSet resultSet = sqlConnector.getResultSet();
 

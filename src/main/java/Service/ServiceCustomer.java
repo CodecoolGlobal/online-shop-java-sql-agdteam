@@ -9,6 +9,7 @@ import View.View;
 import View.ViewCustomer;
 import View.ViewAdmin;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,7 +33,8 @@ public class ServiceCustomer {
 					"Show My Basket",
 					"Add product to My Basket",
 					"Place an order",
-					"Send feedback"
+					"Send feedback",
+					"Check my orders"
 			));
 
 	public ServiceCustomer(Customer customer, CustomerDAO customerDAO, SQLConnector sqlConnector, View view) {
@@ -64,11 +66,17 @@ public class ServiceCustomer {
 					break;
 				case 4:
 					serviceUtilityCustomer.placeOrder();
-					//todo: jakies info ze zlozono zamowienie itp;
 					break;
 				case 5:
 					//send feedback
 					break;
+				case 6:
+				    try {
+                        serviceUtilityCustomer.showOrderHistory();
+                    }catch (SQLException ex){
+				        ex.printStackTrace();
+                    }
+
 				case 0:
 					break;
 			}

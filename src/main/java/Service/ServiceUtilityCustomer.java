@@ -1,13 +1,12 @@
 package Service;
 
 import DAO.*;
-import Model.Customer;
-import Model.Order;
-import Model.OrderStatus;
-import Model.Product;
+import Model.*;
 import View.View;
 import View.ViewCustomer;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static View.View.pause;
@@ -75,11 +74,23 @@ public class ServiceUtilityCustomer {
         }
     }
 
-    public void crudBasket() {
+    public void showOrderHistory() throws SQLException {
+        List<Integer> ordersNumbers = ordersDAO.getOrdersByUserID(customer);
 
+        if(ordersNumbers.size()>0) {
+            for (Integer orderIndex : ordersNumbers) {
+                System.out.printf("\n***Zamówienie nr %d***\n", orderIndex);
+                for (OrderedItems items : orderedItemsDAO.getOrderedItemsByOrderID(orderIndex)) {
+                    String productName = productsDAO.getProductNameById(items.getOrderID());
+                    view.printSingleOrderDetails(items, productName);
+                }
+            }
+        }else {
+            System.out.println("No orders!");
+        }
     }
 
-    public void showOrderHistory() {
+    public void crudBasket() {
 
     }
 

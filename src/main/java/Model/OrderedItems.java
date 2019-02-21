@@ -1,5 +1,8 @@
 package Model;
 
+import DAO.ProductsDAO;
+import DAO.SQLConnector;
+
 import java.math.BigDecimal;
 
 public class OrderedItems {
@@ -16,5 +19,20 @@ public class OrderedItems {
         this.price = price;
     }
 
+    public int getOrderID() {
+        return orderID;
+    }
+
+    public int getProductID() {
+        return productID;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
 
 }

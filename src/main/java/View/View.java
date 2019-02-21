@@ -1,5 +1,6 @@
 package View;
 
+import Model.OrderedItems;
 import Model.Product;
 
 import DAO.CategoryDAO;
@@ -138,6 +139,13 @@ public class View {
                 product.getAmount());
         System.out.println(printProduct);
     }
+
+    public void printSingleOrderDetails(OrderedItems orderedItems, String productName) {
+
+			System.out.printf("%s -> %d pcs -> %.2f$\n"
+					, productName, orderedItems.getQuantity(), orderedItems.getPrice());
+
+	}
 
     public int getIdOfItem(int max){
         System.out.println("Please select id of item you want to buy");
