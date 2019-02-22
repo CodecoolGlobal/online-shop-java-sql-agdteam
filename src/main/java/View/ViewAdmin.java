@@ -11,7 +11,6 @@ public class ViewAdmin extends View {
 
 
 	public void showAllList(List<?> productList) {
-
 		if(productList.get(0).getClass().equals(Product.class)){
 			AsciiTable at = new AsciiTable();
 			at.addRule();
@@ -41,6 +40,11 @@ public class ViewAdmin extends View {
 		}
 	}
 
+	public int getIdOfItem(){
+		System.out.print("Please select item ID: ");
+		return validatorInput.getIdOfItem();
+	}
+
 
 	public void viewMainMenu() {
 
@@ -51,10 +55,7 @@ public class ViewAdmin extends View {
 
 	}
 
-	public int getIdOfItem(){
-		System.out.println("Please select item ID");
-		return validatorInput.getIdOfItem();
-	}
+
 
 	public void viewOtherMenu(){
 

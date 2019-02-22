@@ -1,15 +1,11 @@
 package Service;
 
 import DAO.*;
-import Model.Category;
-import Model.Product;
-import View.View;
-import View.ViewAdmin;
+import Model.*;
+import View.*;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static View.View.pause;
 
@@ -32,66 +28,71 @@ public class ServiceUtilityAdmin {
 		this.view = view;
 	}
 
-	public void crudProducts() {
-
-	}
-
-	public void crudCategories(){
+	public void crudProduct(){
 		int choice;
 		do {
 			viewAdmin.showAllList(productsDAO.getAll());
 			choice = view.getAdminCrudMenuChoice();
 			switch (choice) {
 				case 1: {
-					addOrUpdateProduct();
+					addProduct();
 					pause();
 					break;
 				}
 				case 2:	{
-//					System.out.println("test <---------");
-//					System.out.println(productsDAO.getProductById(1).getName());
-//					System.out.println(productsDAO.getProductById(view.getId(productsDAO.getAll().size())));
-						int id  = viewAdmin.getIdOfItem();
-						try {
-							Product productToDelete = productsDAO.getProductById(id);
-							productsDAO.delete(productToDelete);
-						} catch (SQLException e){
-							viewAdmin.itemNotOnListMessage();
-						}
+					delProduct();
 					break;
 				}
 				case 3:{
 					viewAdmin.showAllList(productsDAO.getAll());
-//					int index = view.getId(productsDAO);
-					addOrUpdateProduct(view.getId(productsDAO));
+					int id = view.getIdProduct(productsDAO);
+					try {
+						String name = view.getProductName();
+						name = (name.length() == 0) ? productsDAO.getProductById(id).getName() : name;
+						BigDecimal price = view.getPrice();
+						price = (price.equals(new BigDecimal("-2"))) ? productsDAO.getProductById(id).getPrice() : price;
+						int amount = view.getAmount();
+						amount = (amount == -2) ? productsDAO.getProductById(id).getAmount() : amount;
+						String categoryName = view.getCategoryNameEdit(categoryDAO);
+						Category category;
+						if (categoryName.equals("")) {
+							category = productsDAO.getProductById(id).getCategory();
+						} else {
+							category = categoryDAO.getAll().stream().filter(e -> e.getName().equals(categoryName)).findFirst().get();
+						}
+						productsDAO.update(id, new Product(name, price, amount, category));
+
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
 				}
 			}
-
-
 		} while (choice != 0);
 	}
 
-	private void addOrUpdateProduct(int id) {
-		if ((id == -1)) {
-			String name = view.getProductName();
-			BigDecimal price = new BigDecimal(String.valueOf(view.getPrice()));
-			int amount = view.getAmount();
-			categoryDAO.getAll().stream().map(Category::getName).forEach(System.out::println);
-			String categoryChoice = view.getCategoryName();
-			Category category = categoryDAO.getAll().stream().filter(e -> e.getName().equals(categoryChoice)).findFirst().get();
-			productsDAO.add(new Product(name, price, amount, category));
-		} else {
-//			productsDAO.update(id, new Product(id, name, price, amount, category));
-		}
+	private void addProduct() {
+		String name = view.getProductName();
+		BigDecimal price = view.getPrice();
+		int amount = view.getAmount();
+		String categoryName = view.getCategoryName(categoryDAO);
+		Category category = categoryDAO.getAll().stream().filter(e -> e.getName().equals(categoryName)).findFirst().get();
+		productsDAO.add(new Product(name, price, amount, category));
 	}
 
-	private void addOrUpdateProduct(){
-		addOrUpdateProduct(-1);
+	private void delProduct() {
+		int productId = view.getIdProduct(productsDAO);
+		Product productToDelete = null;
+		try {
+			productToDelete = productsDAO.getProductById(productId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		productsDAO.delete(productToDelete);
 	}
+
 
 	public void showProductByCategory(){
-//		categoryDAO.getAll().stream().forEach(System.out::println);
-		String category = view.getIdCategory(categoryDAO);
+		String category = view.getCategoryName(categoryDAO);
 		productsDAO.getAll().stream().filter(e -> e.getCategory().getName().equals(category)).forEach(System.out::println);
 		pause();
 	}

@@ -4,9 +4,9 @@ import Model.Product;
 
 import DAO.CategoryDAO;
 import DAO.ProductsDAO;
-import Model.Category;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.*;
 
 public class View {
@@ -36,30 +36,51 @@ public class View {
 	public int getUserMenuChoice(String menuTitle, List<String> menuOptions){
 		System.out.print("\033[H\033[2J");
 		showMenuFromTitleList(menuTitle, menuOptions);
-		System.out.print("Please select menu option:");
-		return validatorInput.getIntInput(menuOptions.size());
-	}
-
-
-	public Integer getId(int max){
-		System.out.print("Id: ");
-		return validatorInput.getIntInput(max);
-	}
-
-	public Integer getId(ProductsDAO productsDAO){
-		System.out.print("Id: ");
-		return validatorInput.getInt(productsDAO);
-	}
-
-
-	public String getString(String string){
-		System.out.println(string);
-		return validatorInput.getWord();
+		int choice = -1;
+		do {
+			try {
+				System.out.print("Please select menu option:");
+				choice = validatorInput.getIntInput(menuOptions.size());
+			} catch (NumberFormatException | IndexOutOfBoundsException m) {
+				System.out.println(m.getMessage());
+			}
+		} while (choice < 0);
+		return choice;
 	}
 
 	public BigDecimal getPrice(){
-		System.out.print("Price: ");
-		return validatorInput.getBigDecimal();
+    	BigDecimal bigDecimal = new BigDecimal(-1);
+		do {
+			try {
+				System.out.print("Price: ");
+				bigDecimal = validatorInput.getBigDecimal();
+				if (bigDecimal.compareTo(new BigDecimal(0)) < 0 && !bigDecimal.equals(new BigDecimal(-2))) {
+					System.out.println("Price should be grater or equals 0");
+				}
+			} catch (NumberFormatException m) {
+				System.out.println("Invalid input, please try again");
+			}
+		} while (bigDecimal.equals(new BigDecimal(-1)));
+		return bigDecimal;
+	}
+
+//	public BigDecimal getForEditPrice() {
+//
+//		BigDecimal input = validatorInput.getForEditBigDecimal();
+//
+//	}
+
+	public int getAmount(){
+    	int amount = -1;
+		do {
+			try {
+				System.out.print("Amount:");
+				amount = validatorInput.getIntInput(1000);
+			} catch (NumberFormatException | IndexOutOfBoundsException m) {
+				System.out.println(m.getMessage());
+			}
+		} while (amount < 0 && amount != -2);
+		return amount;
 	}
 
 	public String getName(){
@@ -69,7 +90,7 @@ public class View {
 
 	public String getProductName(){
 		System.out.print("Product name: ");
-		return validatorInput.getWord();
+		return validatorInput.getWords();
 	}
 
 
@@ -83,14 +104,25 @@ public class View {
 		return validatorInput.getUserName();
 	}
 
-	public int getAmount(){
-		System.out.print("Amount :");
-		return validatorInput.getIntInput(1000);
+	public Integer getId(int max){
+		System.out.print("Id: ");
+		return validatorInput.getIntInput(max);
+	}
+
+	public Integer getIdProduct(ProductsDAO productsDAO){
+//		System.out.print("Id: ");
+		return validatorInput.getIdOfProduct(productsDAO);
+	}
+
+
+	public String getString(String string){
+		System.out.println(string);
+		return validatorInput.getWords();
 	}
 
 	public String getCategoryName(){
 		System.out.print("Category name :");
-		return validatorInput.getWord();
+		return validatorInput.getWords();
 	}
 
 
@@ -99,12 +131,32 @@ public class View {
 		pause();
 	}
 
-	public String getIdCategory(CategoryDAO categoryDAO) {
+	public String getCategoryName(CategoryDAO categoryDAO) {
 		categoryDAO.getAll().stream().map(e -> e.getId() + " : " + e.getName()).forEach(System.out::println);
-		System.out.print("Category: ");
-		return categoryDAO.getCategoryById(validatorInput.getIntInput(categoryDAO.getAll().size())).getName();
-
+		return validatorInput.getInputCategory(categoryDAO);
 	}
+
+	public String getCategoryNameEdit(CategoryDAO categoryDAO) {
+		categoryDAO.getAll().stream().map(e -> e.getId() + " : " + e.getName()).forEach(System.out::println);
+		do {
+			System.out.print("Category: ");
+			String category = validatorInput.getWords();
+			if (category.equals("")) {
+				return "";
+			} else {
+				try {
+					category = categoryDAO.getCategoryById(Integer.parseInt(category)).getName();
+					return category;
+				} catch (SQLException | NumberFormatException m) {
+					System.out.println("There is not that category or wrong input, please try again");
+				}
+			}
+		} while (true);
+
+
+//		return validatorInput.getInputCategory(categoryDAO);
+	}
+
 
     private void showMenuFromTitleList(String menuTitle, List<String> menuOptions){
         System.out.println(menuTitle);

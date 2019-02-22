@@ -6,7 +6,6 @@ import View.*;
 
 import java.sql.SQLException;
 
-
 public class ServiceMain {
 	private View view = new View();
 	private SQLConnector sqlConnector = SQLConnector.getInstance();
@@ -21,10 +20,9 @@ public class ServiceMain {
 		} catch (SQLException e) {
 			view.displayInvalidNameOrPassword();
 			return false;
-
 		}
 		if (customer.isAdmin()) {
-			ServiceAdmin serviceAdmin = new ServiceAdmin(customer, customerDAO, sqlConnector, view);
+			ServiceAdmin serviceAdmin = new ServiceAdmin(customerDAO, sqlConnector, view);
 			serviceAdmin.run();
 		} else if (!customer.isAdmin()) {
 			serviceCustomer = new ServiceCustomer(customer, customerDAO, sqlConnector, view);
@@ -34,12 +32,8 @@ public class ServiceMain {
 	}
 
 	public void handleWithOutLogin(){
-//		Customer anonymous = new Customer(0, 0, "Anonymous", "anonymous", "anonymous");
-//		serviceCustomer = new ServiceCustomer(anonymous, customerDAO, sqlConnector, view);
-		customer = new Customer(
-				0, "anonymous", "anonymous", "anonymous", true);
-
-		serviceCustomer = new ServiceCustomer(customer,customerDAO, sqlConnector, view);
+		customer = new Customer(0, "anonymous", "anonymous", "anonymous", true);
+		serviceCustomer = new ServiceCustomer(customer, customerDAO, sqlConnector, view);
 		serviceCustomer.run();
 	}
 

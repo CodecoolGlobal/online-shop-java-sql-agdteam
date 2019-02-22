@@ -94,8 +94,8 @@ public class CustomerDAO implements InterfaceDAO<Customer> {
 					resultSet.getString("LOGIN"),
 					resultSet.getString("PASSWORD"),
 					resultSet.getString("NAME")
-//					resultSet.getInt("ORDERS"),
-//					resultSet.getInt("FEEDBACKLIST") TODO: pobrac z innych DAO
+//					resultSet.getIdOfProduct("ORDERS"),
+//					resultSet.getIdOfProduct("FEEDBACKLIST") TODO: pobrac z innych DAO
 			);
 
 		}catch (SQLException ex){
