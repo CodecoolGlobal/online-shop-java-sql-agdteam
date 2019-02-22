@@ -54,7 +54,7 @@ public class View {
 			try {
 				System.out.print("Price: ");
 				bigDecimal = validatorInput.getBigDecimal();
-				if (bigDecimal.compareTo(new BigDecimal(0)) < 0 && !bigDecimal.equals(new BigDecimal(-2))) {
+				if (bigDecimal.compareTo(new BigDecimal(0)) < 0) {
 					System.out.println("Price should be grater or equals 0");
 				}
 			} catch (NumberFormatException m) {
@@ -64,13 +64,24 @@ public class View {
 		return bigDecimal;
 	}
 
-//	public BigDecimal getForEditPrice() {
-//
-//		BigDecimal input = validatorInput.getForEditBigDecimal();
-//
-//	}
+	public BigDecimal getForEditPrice() {
+		BigDecimal bigDecimal = new BigDecimal(-1);
+		do {
+			try {
+				System.out.print("Price: ");
+				bigDecimal = validatorInput.getForEditBigDecimal();
+				if (bigDecimal.compareTo(new BigDecimal(0)) < 0 && !bigDecimal.equals(new BigDecimal(-2))) {
+					System.out.println("Price should be grater or equals 0");
+				}
+			} catch (NumberFormatException m) {
+				System.out.println("Invalid input, please try again");
+			}
+		} while (bigDecimal.equals(new BigDecimal(-1)));
+		return bigDecimal;
 
-	public int getAmount(){
+	}
+
+	public int getForEditAmount(){
     	int amount = -1;
 		do {
 			try {
@@ -80,6 +91,19 @@ public class View {
 				System.out.println(m.getMessage());
 			}
 		} while (amount < 0 && amount != -2);
+		return amount;
+	}
+
+	public int getAmount(){
+		int amount = -1;
+		do {
+			try {
+				System.out.print("Amount:");
+				amount = validatorInput.getIntInput(1000);
+			} catch (NumberFormatException | IndexOutOfBoundsException m) {
+				System.out.println(m.getMessage());
+			}
+		} while (amount < 0);
 		return amount;
 	}
 
@@ -152,9 +176,10 @@ public class View {
 				}
 			}
 		} while (true);
+	}
 
-
-//		return validatorInput.getInputCategory(categoryDAO);
+	public void showEditMessage(){
+		System.out.println("If you press ENTER, then won't be edit. ");
 	}
 
 

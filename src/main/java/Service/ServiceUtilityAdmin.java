@@ -44,30 +44,37 @@ public class ServiceUtilityAdmin {
 					break;
 				}
 				case 3:{
-					viewAdmin.showAllList(productsDAO.getAll());
-					int id = view.getIdProduct(productsDAO);
-					try {
-						String name = view.getProductName();
-						name = (name.length() == 0) ? productsDAO.getProductById(id).getName() : name;
-						BigDecimal price = view.getPrice();
-						price = (price.equals(new BigDecimal("-2"))) ? productsDAO.getProductById(id).getPrice() : price;
-						int amount = view.getAmount();
-						amount = (amount == -2) ? productsDAO.getProductById(id).getAmount() : amount;
-						String categoryName = view.getCategoryNameEdit(categoryDAO);
-						Category category;
-						if (categoryName.equals("")) {
-							category = productsDAO.getProductById(id).getCategory();
-						} else {
-							category = categoryDAO.getAll().stream().filter(e -> e.getName().equals(categoryName)).findFirst().get();
-						}
-						productsDAO.update(id, new Product(name, price, amount, category));
-
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
+					editProduct();
+					pause();
 				}
 			}
 		} while (choice != 0);
+	}
+
+	private void editProduct() {
+		viewAdmin.showAllList(productsDAO.getAll());
+		int id = view.getIdProduct(productsDAO);
+		view.showEditMessage();
+		try {
+			String name = view.getProductName();
+			name = (name.length() == 0) ? productsDAO.getProductById(id).getName() : name;
+			BigDecimal price = view.getForEditPrice();
+			price = (price.equals(new BigDecimal("-2"))) ? productsDAO.getProductById(id).getPrice() : price;
+			int amount = view.getForEditAmount();
+			amount = (amount == -2) ? productsDAO.getProductById(id).getAmount() : amount;
+			String categoryName = view.getCategoryNameEdit(categoryDAO);
+			Category category;
+			if (categoryName.equals("")) {
+				category = productsDAO.getProductById(id).getCategory();
+			} else {
+				category = categoryDAO.getAll().stream().filter(e -> e.getName().equals(categoryName)).findFirst().get();
+			}
+			productsDAO.update(id, new Product(name, price, amount, category));
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		viewAdmin.showAllList(productsDAO.getAll());
 	}
 
 	private void addProduct() {

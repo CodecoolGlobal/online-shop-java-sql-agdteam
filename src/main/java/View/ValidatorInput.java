@@ -77,16 +77,13 @@ public class ValidatorInput {
 
     public BigDecimal getBigDecimal() throws NumberFormatException{
         String input = inputScanner.nextLine();
-        return new BigDecimal((input.equals("")? "-2": input));
+        return new BigDecimal(input);
     }
 
-//    public BigDecimal getForEditBigDecimal() throws NumberFormatException{
-//        String input = inputScanner.nextLine();
-//        if (input.length() == 0) {
-//            return new BigDecimal(-2);
-//        }
-//        return new BigDecimal(input);
-//    }
+    public BigDecimal getForEditBigDecimal() throws NumberFormatException{
+        String input = inputScanner.nextLine();
+        return new BigDecimal((input.equals("")? "-2": input));
+    }
 
     public String getWords(){
         return inputScanner.nextLine();
